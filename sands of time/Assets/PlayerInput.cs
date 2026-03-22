@@ -8,7 +8,7 @@ public class PlayerInput : MonoBehaviour
     private PlayerVariables variables;
     private Vector2 moveInput;
 
-    private void Awake()
+    private void Start()
     {
         inputActions = new InputSystem_Actions();
         variables = gameObject.GetComponent<PlayerVariables>();
@@ -16,15 +16,22 @@ public class PlayerInput : MonoBehaviour
     }
     private void OnEnable()
     {
+        if(inputActions == null)
+        {
+            inputActions = new InputSystem_Actions();
+        }
         inputActions.Enable();
         inputActions.Player.Move.performed += OnMove;
         inputActions.Player.Move.canceled += OnMove; // important!
+        inputActions.Player.Jump.performed += (context)=>variables.playerMovementScript.JumpAction?.Invoke();
     }
 
     private void OnDisable()
     {
         inputActions.Player.Move.performed -= OnMove;
         inputActions.Player.Move.canceled -= OnMove;
+        inputActions.Player.Jump.performed -= (context)=>variables.playerMovementScript.JumpAction?.Invoke();
+
         inputActions.Disable();
     }
 

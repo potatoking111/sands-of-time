@@ -1,14 +1,13 @@
 using UnityEngine;
 
-public class PlayerVariables : MonoBehaviour
+public class EnemyVariables : MonoBehaviour
 {
-    public float movementSpeed;
-    public Vector2 playerFacing;
     public Rigidbody2D rigidBody;
-    public PlayerMovement playerMovementScript;
-    public float footRaycastDistance;
     public BoxCollider2D hitbox;
-    public float jumpStrength;
+    public float senseRadius;
+    public Vector2 facing;
+    public float walkSpeed;
+    public float runSpeed;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
