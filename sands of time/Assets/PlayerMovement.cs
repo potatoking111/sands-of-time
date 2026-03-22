@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
     }
     public void Move(Vector2 dirVector)
     {
-        variables.playerFacing = dirVector;
+
         Vector2 moveVector = new Vector2(dirVector.x*variables.movementSpeed,variables.rigidBody.linearVelocity.y);
         variables.rigidBody.linearVelocity = moveVector;
         
