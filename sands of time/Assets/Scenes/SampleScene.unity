@@ -539,6 +539,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerVariables
   movementSpeed: 2
+  accelertion: 15
+  decelertion: 20
+  airControlFactor: 0.6
   playerFacing: {x: 0, y: 0}
   rigidBody: {fileID: 1801674477}
   playerMovementScript: {fileID: 1424611658}
