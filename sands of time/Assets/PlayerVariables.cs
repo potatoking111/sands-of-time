@@ -9,9 +9,11 @@ public class PlayerVariables : MonoBehaviour
     public Vector2 playerFacing;
     public Rigidbody2D rigidBody;
     public PlayerMovement playerMovementScript;
+    public PlayerAttackScript playerAttackScript;
     public float footRaycastDistance;
     public BoxCollider2D hitbox;
     public float jumpStrength;
+    public float atttackTimePeriod;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
