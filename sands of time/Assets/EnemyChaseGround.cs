@@ -54,7 +54,6 @@ public class EnemyChaseGround : MonoBehaviour
             UnityEngine.Vector2 direction = UnityEngine.Quaternion.Euler(0, 0, (angleSpacing*rayNumber - 90 + rayStartOffset)) * variables.facing;
             RaycastHit2D hit  = Physics2D.Raycast(start,direction,variables.senseRadius,layerMask);
             Debug.DrawRay(start, direction * variables.senseRadius, Color.red); // visualize
-            Debug.Log(hit.collider);
             if (hit.collider != null && hit.collider.gameObject.CompareTag("Player"))
             {
                 return true;
@@ -68,7 +67,6 @@ public class EnemyChaseGround : MonoBehaviour
 
         public bool CheckIfAirUnder(LayerMask layer, float rayLength = 1f)
     {
-        Debug.Log(layer);
         BoxCollider2D box = variables.hitbox;
         Vector2 leftPos = new Vector2(box.transform.position.x-box.size.x/2,box.transform.position.y-box.size.y/2);
         Vector2 rightPos = new Vector2(box.transform.position.x+box.size.x/2,box.transform.position.y-box.size.y/2);
@@ -78,11 +76,9 @@ public class EnemyChaseGround : MonoBehaviour
         Debug.DrawRay(leftPos, Vector2.down * rayLength, Color.red);
         Debug.DrawRay(rightPos, Vector2.down * rayLength, Color.green);
 
-        Debug.Log(hitLeft.collider+ " enemy "+hitRight.collider);
         
         if (hitLeft.collider == null || hitRight.collider == null)
         {
-                Debug.Log("AIuhafsuhf");
                 return true;
 
             

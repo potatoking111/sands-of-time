@@ -8,6 +8,9 @@ public class EnemyVariables : MonoBehaviour
     public Vector2 facing;
     public float walkSpeed;
     public float runSpeed;
+
+    public float enemyDamageCooldown;
+    public float enemyContactDamageAmount;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

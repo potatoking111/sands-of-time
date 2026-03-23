@@ -29,6 +29,10 @@ public class PlayerInput : MonoBehaviour
 
         inputActions.Player.Jump.performed += (context)=>variables.playerMovementScript.JumpAction?.Invoke();
         inputActions.Player.Attack.performed += OnAttack;
+
+                // temp
+        inputActions.Player.Interact.performed += (context) => variables.timeManagerScript.FlipAction?.Invoke();
+        //
     }
 
     private void MoveFacingSetup()
@@ -43,6 +47,8 @@ public class PlayerInput : MonoBehaviour
         inputActions.Player.MoveDown.canceled += _ => OnFaceKeyRelease(Vector2.down);
         inputActions.Player.MoveLeft.canceled += _ => OnFaceKeyRelease(Vector2.left);
         inputActions.Player.MoveRight.canceled += _ => OnFaceKeyRelease(Vector2.right);
+
+
     }
 
     private void OnDisable()

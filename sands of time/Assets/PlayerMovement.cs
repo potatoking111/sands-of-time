@@ -47,7 +47,6 @@ public class PlayerMovement : MonoBehaviour
     }
     public GameObject GetObjectUnder(LayerMask layer, float rayLength = 1f)
     {
-        Debug.Log(layer);
         BoxCollider2D box = variables.hitbox;
         Vector2 leftPos = new Vector2(box.transform.position.x-box.size.x/2,box.transform.position.y-box.size.y/2);
         Vector2 rightPos = new Vector2(box.transform.position.x+box.size.x/2,box.transform.position.y-box.size.y/2);
@@ -57,7 +56,6 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawRay(leftPos, Vector2.down * rayLength, Color.red);
         Debug.DrawRay(rightPos, Vector2.down * rayLength, Color.green);
 
-        Debug.Log(hitLeft.collider+ " "+hitRight.collider);
 
         if (hitLeft.collider == null && hitRight.collider == null)
         {
