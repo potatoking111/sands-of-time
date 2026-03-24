@@ -1,14 +1,13 @@
 using UnityEngine;
 
-public class EnemyContactDamage : MonoBehaviour
+public class SpikeScript : MonoBehaviour
 {
-    private EnemyVariables variables;
     private float lastDamageTime = 0f;
-
+    public float damageCooldown;
+    public float damageAmount;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        variables = gameObject.GetComponent<EnemyVariables>();
 
     }
 
@@ -20,19 +19,14 @@ public class EnemyContactDamage : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
     Debug.Log("Something entered trigger: " + other.name);
-    if (other.gameObject.CompareTag("PlayerHitbox") && lastDamageTime + variables.enemyDamageCooldown < Time.time)
+    if (other.gameObject.CompareTag("PlayerHitbox") && lastDamageTime + damageCooldown < Time.time)
     {
         Debug.Log("Player entered trigger");
         PlayerVariables playerVariables = other.gameObject.GetComponentInParent<PlayerVariables>();
         if (playerVariables != null)
         {
             Debug.Log("Player variables found, applying damage");
-            float damage = variables.enemyContactDamageAmount;
-            if (variables.isCharging)
-            {
-                damage += variables.chargeExtraDamage;
-            }
-            playerVariables.timeManagerScript.TakeDamageAction?.Invoke(damage,DamageType.Enemy);
+            playerVariables.timeManagerScript.TakeDamageAction?.Invoke(damageAmount,DamageType.Spike);
             lastDamageTime = Time.time;
 
         }
@@ -42,5 +36,4 @@ public class EnemyContactDamage : MonoBehaviour
         }
     }
 }
-
 }

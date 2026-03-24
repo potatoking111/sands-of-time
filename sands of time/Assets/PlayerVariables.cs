@@ -16,6 +16,9 @@ public class PlayerVariables : MonoBehaviour
     public float atttackTimePeriod;
     public PlayerTimeManager timeManagerScript;
 
+    public Vector2 lastSolidGroundPosition;
+    public Vector2 lastSolidGroundHangDirection;
+    public bool isOnGround;
 
     public float timeHealth;
     public float maxTimeHealth;

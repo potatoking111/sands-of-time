@@ -7,10 +7,25 @@ public class PlayerMovement : MonoBehaviour
     public  Action JumpAction {get;set;}
     private string[] defaultLayerNames = new string[]{"Ground"};
     private PlayerVariables variables;
+
+    public Action GoToLastGroundPositionAction {get;set;}
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         variables = gameObject.GetComponent<PlayerVariables>();
+        GoToLastGroundPositionAction += GoToLastGroundPosition;
+    }
+    void GoToLastGroundPosition()
+    {
+        variables.rigidBody.position = variables.lastSolidGroundPosition;
+        if (variables.lastSolidGroundHangDirection== Vector2.right)
+        {
+            variables.rigidBody.position = variables.rigidBody.position + Vector2.left*variables.hitbox.size.x;
+        }
+        else if (variables.lastSolidGroundHangDirection == Vector2.left)
+        {
+            variables.rigidBody.position = variables.rigidBody.position + Vector2.right*variables.hitbox.size.x;
+        }
     }
     void OnEnable()
     {
@@ -25,9 +40,16 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        variables.isOnGround = false;
+        Vector2 hangDirection = GetDirectionOfSideHanging(LayerMask.GetMask(defaultLayerNames),variables.footRaycastDistance);
+        if (hangDirection != Vector2.zero)
+        {
+            variables.isOnGround = true;
+            variables.lastSolidGroundPosition = variables.rigidBody.position;
+            variables.lastSolidGroundHangDirection = hangDirection;
+        }
     }
     public void Move(Vector2 dirVector)
     {
@@ -39,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
     public void Jump()
     {
         
-        if (GetObjectUnder(LayerMask.GetMask(defaultLayerNames),variables.footRaycastDistance) != null)
+        if (variables.isOnGround)
         {
             variables.rigidBody.AddForce(Vector2.up*variables.jumpStrength,ForceMode2D.Impulse);
 
@@ -66,5 +88,28 @@ public class PlayerMovement : MonoBehaviour
             return hitLeft.collider.gameObject;
         }
         return hitRight.collider.gameObject;
+    }
+
+    public Vector2 GetDirectionOfSideHanging(LayerMask layer, float rayLength = 1f)
+    {
+        BoxCollider2D box = variables.hitbox;
+        Vector2 leftPos = new Vector2(box.transform.position.x-box.size.x/2,box.transform.position.y-box.size.y/2);
+        Vector2 rightPos = new Vector2(box.transform.position.x+box.size.x/2,box.transform.position.y-box.size.y/2);
+
+        RaycastHit2D hitLeft = Physics2D.Raycast(leftPos, Vector2.down, rayLength, layer);
+        RaycastHit2D hitRight = Physics2D.Raycast(rightPos, Vector2.down, rayLength, layer);
+        Debug.DrawRay(leftPos, Vector2.down * rayLength, Color.red);
+        Debug.DrawRay(rightPos, Vector2.down * rayLength, Color.green);
+
+
+        if (hitLeft.collider == null && hitRight.collider == null)
+        {
+            return Vector2.zero;
+        }
+        if (hitLeft.collider != null)
+        {
+            return Vector2.right;
+        }
+        return Vector2.left;
     }
 }

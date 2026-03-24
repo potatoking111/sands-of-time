@@ -9,7 +9,7 @@ public class PlayerTimeManager : MonoBehaviour
     public GameObject healthBar;
     private GameObject healthBarContainer;
     public Action FlipAction {get;set;}
-    public Action<float> TakeDamageAction {get;set;}
+    public Action<float, DamageType> TakeDamageAction {get;set;}
     private int timeDirection = 1; 
     private float initialTimeDisplaySize;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -27,7 +27,7 @@ public class PlayerTimeManager : MonoBehaviour
         variables.timeHealth = variables.maxTimeHealth - variables.timeHealth;
         timeDirection *= -1;
     }   
-    public void TakeDamage(float damageAmount)
+    public void TakeDamage(float damageAmount, DamageType damageType=DamageType.None)
     {
         variables.maxTimeHealth -= damageAmount;
         if (variables.maxTimeHealth < 0)
@@ -42,6 +42,12 @@ public class PlayerTimeManager : MonoBehaviour
         Vector3 newScale = healthBarContainerRect.localScale;
         newScale.x = initialTimeDisplaySize * (variables.maxTimeHealth / variables.initialMaxTimeHealth);
         healthBarContainerRect.localScale = newScale;
+
+
+        if (damageType == DamageType.Spike)
+        {
+            variables.playerMovementScript.GoToLastGroundPositionAction.Invoke();
+        }
     }
     // Update is called once per frame
     void Update()

@@ -5,7 +5,7 @@ public class EnemyChaseGround : MonoBehaviour
     private EnemyVariables variables;
     private string[] groundLayer = new string[]{"Ground"};
     private bool touchingSolidGround = true;
-    
+    public bool pauseMovement = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -21,30 +21,50 @@ public class EnemyChaseGround : MonoBehaviour
     void Update()
     {
         // Debug.Log(CheckInFront());
-        PatrollBehavior();
-    }
-    public void PatrollBehavior()
-    {
-        float tempWalkSpeed = variables.walkSpeed;
-        if (CheckInFront())
+        if (!pauseMovement)
         {
-            tempWalkSpeed = variables.runSpeed;
+            PatrollBehavior();
         }
-        if (CheckIfAirUnder(LayerMask.GetMask(groundLayer)) && touchingSolidGround){
-            variables.facing = new Vector2(variables.facing.x*-1,variables.facing.y);
-            touchingSolidGround = false;
-        }
-        variables.rigidBody.linearVelocity = variables.facing * tempWalkSpeed ;
 
     }
+
+public void PatrollBehavior()
+{
+    float targetSpeed = variables.walkSpeed;
+    variables.isCharging = false;
+
+    if (CheckInFront(rayStartOffset: variables.senseAngleOffset))
+    {
+        variables.isCharging = true;
+        targetSpeed = variables.runSpeed;
+    }
+
+    if (CheckIfAirUnder(LayerMask.GetMask(groundLayer)) && touchingSolidGround)
+    {
+        variables.facing = new Vector2(-variables.facing.x, variables.facing.y);
+        touchingSolidGround = false;
+    }
+
+    Vector2 targetVelocity = variables.facing * targetSpeed;
+
+    // smooth acceleration
+    variables.rigidBody.linearVelocity = Vector2.Lerp(
+        variables.rigidBody.linearVelocity,
+        targetVelocity,
+        variables.acceleration * Time.deltaTime
+    );
+}
     
     public bool CheckInFront(int amountOfRays = 10,float rayStartOffset=30) // start from bottom go to top angle
     {
-        LayerMask layerMask = Physics.AllLayers;
-        int indexEnemyLayer = LayerMask.NameToLayer("Enemy");
+        LayerMask layerMask = Physics2D.AllLayers;
+        int[] indexLayersToRemove = { LayerMask.NameToLayer("Enemy") ,LayerMask.NameToLayer("PlayerHitbox")};
+        foreach (int indexEnemyLayer in indexLayersToRemove)
+        {
         int layerToRemoveBit = 1 << indexEnemyLayer;
-
         layerMask &= ~layerToRemoveBit;
+        }
+
 
         float angleSpacing = (180.0f - rayStartOffset*2) / amountOfRays;
         UnityEngine.Vector2 start = variables.hitbox.transform.position;
