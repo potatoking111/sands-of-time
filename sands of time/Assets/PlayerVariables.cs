@@ -14,10 +14,16 @@ public class PlayerVariables : MonoBehaviour
     public BoxCollider2D hitbox;
     public float jumpStrength;
     public float atttackTimePeriod;
+    public PlayerTimeManager timeManagerScript;
+
+
+    public float timeHealth;
+    public float maxTimeHealth;
+    public float initialMaxTimeHealth;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        initialMaxTimeHealth = maxTimeHealth;
     }
 
     // Update is called once per frame
