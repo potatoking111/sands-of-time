@@ -76,6 +76,7 @@ public void PatrollBehavior()
             Debug.DrawRay(start, direction * variables.senseRadius, Color.red); // visualize
             if (hit.collider != null && hit.collider.gameObject.CompareTag("Player"))
             {
+                variables.detectedPlayerDistance = hit.distance;
                 return true;
             }
 
