@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 543302238370725119}
   - component: {fileID: 5534265184493065900}
   - component: {fileID: 6398897946584439077}
+  - component: {fileID: -6620596481881927363}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
@@ -186,16 +187,16 @@ MonoBehaviour:
   senseRadius: 10
   senseAngleOffset: 0
   facing: {x: -1, y: 0}
-  walkSpeed: 1.2
-  runSpeed: 2
+  walkSpeed: 1.5
+  runSpeed: 5
   isCharging: 0
   chargeExtraDamage: 0
   enemyDamageCooldown: 1
   enemyContactDamageAmount: 5
-  acceleration: 0
-  detectedPlayerDistance: 0
-  chaseScript: {fileID: 0}
-  contactDamageScript: {fileID: 0}
+  acceleration: 8
+  detectedPlayerDistance: 5
+  chaseScript: {fileID: 5534265184493065900}
+  contactDamageScript: {fileID: 6398897946584439077}
 --- !u!114 &5534265184493065900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,3 +222,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63f835e1ac8b67441bf0aebd51f9911a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyContactDamage
+--- !u!114 &-6620596481881927363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6940533930549846039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad20c397fb0bb96488b2af186b7abcc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LungeAttackEnemy
+  attackObject: {fileID: 0}
+  attackDuration: 0.5
+  jumpForceMod: 4
+  attackRange: 2
+  attackWaitTime: 0
+  isLunging: 0
+  isBackingUp: 0
