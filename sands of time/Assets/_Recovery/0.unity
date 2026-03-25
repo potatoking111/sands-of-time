@@ -1283,7 +1283,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 3
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1537,9 +1537,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98b90a2559f1c8143833c85509026432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerVariables
-  movementSpeed: 8
-  accelertion: 10
-  decelertion: 12
+  movementSpeed: 2
+  accelertion: 15
+  decelertion: 20
   airControlFactor: 0.6
   playerFacing: {x: 0, y: 0}
   rigidBody: {fileID: 1801674477}
@@ -1547,7 +1547,7 @@ MonoBehaviour:
   playerAttackScript: {fileID: 1801674481}
   footRaycastDistance: 0.6
   hitbox: {fileID: 1801674478}
-  jumpStrength: 12
+  jumpStrength: 8
   atttackTimePeriod: 0.14
   timeManagerScript: {fileID: 1801674479}
   lastSolidGroundPosition: {x: 0, y: 0}
