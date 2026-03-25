@@ -1,4 +1,5 @@
 using System;
+using NUnit.Framework;
 using UnityEngine;
 
 public class LungeAttackEnemy : MonoBehaviour
@@ -12,6 +13,10 @@ public class LungeAttackEnemy : MonoBehaviour
     
     public float jumpForceMod;
     public float attackRange;
+
+    public float attackWaitTime;
+    public bool isLunging = false;
+    public bool isBackingUp = false;
     void Start()
     {
         variables = gameObject.GetComponent<EnemyVariables>();
@@ -21,14 +26,22 @@ public class LungeAttackEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (variables.detectedPlayerDistance <= attackRange && variables.isCharging)
+        if (Math.Abs(variables.detectedPlayerDistance) <= attackRange && !isLunging && !isBackingUp)
         {
-            variables.isCharging = false;
-            startLungeAction.Invoke();
+            isBackingUp = true;
+            variables.chaseScript.pauseMovement = true;
+            Invoke("StartLunge", attackWaitTime);
+        }
+        if (isBackingUp)
+        {
+            variables.chaseScript.MoveAction.Invoke(-variables.walkSpeed);
         }
     }
     void StartLunge()
     {
+        isBackingUp = false;
+        isLunging = true;
+        variables.isCharging = false;
         variables.chaseScript.pauseMovement = true;
         attackObject.SetActive(true);
         Vector2 jumpDirection = (variables.facing+Vector2.up).normalized;
@@ -40,7 +53,9 @@ public class LungeAttackEnemy : MonoBehaviour
     }
     void EndLunge()
     {
+        isLunging = false;
         variables.chaseScript.pauseMovement = false;
         attackObject.SetActive(false);
+        variables.chaseScript.CheckInFront(rayStartOffset: variables.senseAngleOffset);
     }
 }
