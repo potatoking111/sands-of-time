@@ -15,6 +15,8 @@ public class EnemyVariables : MonoBehaviour
     public float enemyContactDamageAmount;
     public float acceleration;
     public float detectedPlayerDistance;
+    public EnemyChaseGround chaseScript;
+    public EnemyContactDamage contactDamageScript;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

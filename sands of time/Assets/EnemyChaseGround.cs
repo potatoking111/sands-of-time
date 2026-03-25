@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 public class EnemyChaseGround : MonoBehaviour
@@ -6,10 +7,12 @@ public class EnemyChaseGround : MonoBehaviour
     private string[] groundLayer = new string[]{"Ground"};
     private bool touchingSolidGround = true;
     public bool pauseMovement = false;
+    public Action<float> MoveAction;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         variables = gameObject.GetComponent<EnemyVariables>();
+        MoveAction += MoveForward;
     }
     void Enable()
     {
@@ -28,35 +31,42 @@ public class EnemyChaseGround : MonoBehaviour
 
     }
 
-public void PatrollBehavior()
-{
-    float targetSpeed = variables.walkSpeed;
-    variables.isCharging = false;
-
-    if (CheckInFront(rayStartOffset: variables.senseAngleOffset))
+    public void PatrollBehavior()
     {
-        variables.isCharging = true;
-        targetSpeed = variables.runSpeed;
-    }
+        float targetSpeed = variables.walkSpeed;
+        variables.isCharging = false;
 
-    if (CheckIfAirUnder(LayerMask.GetMask(groundLayer)) && touchingSolidGround)
+
+        if (CheckIfAirUnder(LayerMask.GetMask(groundLayer)) && touchingSolidGround)
+        {
+            variables.facing = new Vector2(-variables.facing.x, variables.facing.y);
+            touchingSolidGround = false;
+        }
+        if (CheckInFront(rayStartOffset: variables.senseAngleOffset))
+        {
+            variables.isCharging = true;
+            targetSpeed = variables.runSpeed;
+        }
+        MoveAction.Invoke(targetSpeed);
+
+    }
+    private void MoveForward(float targetSpeed)
     {
-        variables.facing = new Vector2(-variables.facing.x, variables.facing.y);
-        touchingSolidGround = false;
+
+        Vector2 targetVelocity = variables.facing * targetSpeed;
+
+        // smooth acceleration
+        variables.rigidBody.linearVelocity = Vector2.Lerp(
+            variables.rigidBody.linearVelocity,
+            targetVelocity,
+            variables.acceleration * Time.deltaTime
+        );
     }
-
-    Vector2 targetVelocity = variables.facing * targetSpeed;
-
-    // smooth acceleration
-    variables.rigidBody.linearVelocity = Vector2.Lerp(
-        variables.rigidBody.linearVelocity,
-        targetVelocity,
-        variables.acceleration * Time.deltaTime
-    );
-}
     
     public bool CheckInFront(int amountOfRays = 10,float rayStartOffset=30) // start from bottom go to top angle
     {
+        
+
         LayerMask layerMask = Physics2D.AllLayers;
         int[] indexLayersToRemove = { LayerMask.NameToLayer("Enemy") ,LayerMask.NameToLayer("PlayerHitbox")};
         foreach (int indexEnemyLayer in indexLayersToRemove)
@@ -82,6 +92,8 @@ public void PatrollBehavior()
 
 
         }
+
+        variables.detectedPlayerDistance = Mathf.Infinity;
         return false;
     }
 
