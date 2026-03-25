@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour
     private PlayerVariables variables;
 
     public Action GoToLastGroundPositionAction {get;set;}
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         variables = gameObject.GetComponent<PlayerVariables>();
@@ -38,8 +37,6 @@ public class PlayerMovement : MonoBehaviour
         JumpAction-=Jump;
 
     }
-
-    // Update is called once per frame
     void FixedUpdate()
     {
         variables.isOnGround = false;
@@ -52,12 +49,30 @@ public class PlayerMovement : MonoBehaviour
         }
     }
     public void Move(Vector2 dirVector)
-    {
+{
+    float targetX = dirVector.x * variables.movementSpeed;
+    float currentX = variables.rigidBody.linearVelocity.x;
+    float rate;
+    bool isPressingMove = dirVector.x != 0;
 
-        Vector2 moveVector = new Vector2(dirVector.x*variables.movementSpeed,variables.rigidBody.linearVelocity.y);
-        variables.rigidBody.linearVelocity = moveVector;
-        
+    if (isPressingMove)
+    {
+        if (variables.isOnGround)
+            rate = variables.accelertion;
+        else
+            rate = variables.accelertion * variables.airControlFactor;
     }
+    else
+    {
+        if (variables.isOnGround)
+            rate = variables.decelertion;
+        else
+            rate = variables.decelertion * variables.airControlFactor;
+    }
+
+    float newX = Mathf.MoveTowards(currentX, targetX, rate * variables.movementSpeed * Time.fixedDeltaTime);
+    variables.rigidBody.linearVelocity = new Vector2(newX, variables.rigidBody.linearVelocity.y);
+}
     public void Jump()
     {
         
