@@ -29,6 +29,8 @@ public class PlayerInput : MonoBehaviour
 
         inputActions.Player.Jump.performed += (context)=>variables.playerMovementScript.JumpAction?.Invoke();
         inputActions.Player.Attack.performed += OnAttack;
+        inputActions.Player.Dash.performed += OnDash;
+
 
                 // temp
         inputActions.Player.Interact.performed += (context) => variables.timeManagerScript.FlipAction?.Invoke();
@@ -58,6 +60,9 @@ public class PlayerInput : MonoBehaviour
         inputActions.Player.Attack.performed -= OnAttack;
         inputActions.Player.Move.performed -= OnMove;
         inputActions.Player.Move.canceled -= OnMove;
+        inputActions.Player.Dash.performed -= OnDash;
+
+        
 
         inputActions.Disable();
     }
@@ -90,5 +95,9 @@ public class PlayerInput : MonoBehaviour
     private void OnAttack(InputAction.CallbackContext context)
     {
         variables.playerAttackScript.attackAction.Invoke();
+    }
+     private void OnDash(InputAction.CallbackContext context)
+    {
+        variables.playerMovementScript.TryDash();
     }
 }

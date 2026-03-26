@@ -30,9 +30,14 @@ public class PlayerTimeManager : MonoBehaviour
     public void TakeDamage(float damageAmount, DamageType damageType=DamageType.None)
     {
         variables.maxTimeHealth -= damageAmount;
+        variables.timeHealth -= damageAmount;
         if (variables.maxTimeHealth < 0)
         {
             variables.maxTimeHealth = 0;
+        }
+         if (variables.timeHealth < 0)
+        {
+            variables.timeHealth = 0;
         }
         if (variables.timeHealth > variables.maxTimeHealth)
         {
