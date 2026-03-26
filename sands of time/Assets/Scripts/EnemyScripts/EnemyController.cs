@@ -1,61 +1,54 @@
 using System;
-using Unity.Mathematics;
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
 
-// MIGHT BE BETTER TO MAKE THIS A STATE INSTEAD OF A WHOLE SCRIPT, NOT SURE YET
-public class EnemyChaseGround : MonoBehaviour
+public class EnemyController : MonoBehaviour
 {
-    private EnemyVariables variables;
-    private string[] groundLayer = new string[]{"Ground"};
-    private bool touchingSolidGround = true;
-    public bool pauseMovement = false;
-    public Action<float> MoveAction;
-    public Action FacePlayerAction;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public EnemyVariables variables;
+    public List<MonoBehaviour> stateScripts; // assign in inspector
+
+    private List<IEnemyState> states = new List<IEnemyState>();
+    private int currentStateIndex = 0;
+
     void Start()
     {
-        variables = gameObject.GetComponent<EnemyVariables>();
-        MoveAction += MoveForward;
-        FacePlayerAction += FacePlayer;
+        // Convert scripts to IEnemyState
+        foreach (var script in stateScripts)
+        {
+            if (script is IEnemyState state)
+            {
+                states.Add(state);
+                state.EnterState(this);
+            }
+        }
     }
-    void Enable()
-    {
-       
 
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        // Debug.Log(CheckInFront());
-        if (!pauseMovement)
-        {
-            PatrollBehavior();
-        }
-
+        if (states.Count > 0)
+            states[currentStateIndex].UpdateState();
     }
 
-    public void PatrollBehavior()
+    public void SwitchState(int newIndex)
     {
-        float targetSpeed = variables.walkSpeed;
-        variables.isCharging = false;
+        if (newIndex < 0 || newIndex >= states.Count) return;
 
-
-        if (CheckIfAirUnder(LayerMask.GetMask(groundLayer)) && touchingSolidGround)
-        {
-            variables.facing = new Vector2(-variables.facing.x, variables.facing.y);
-            touchingSolidGround = false;
-        }
-        if (CheckInFront(rayStartOffset: variables.senseAngleOffset))
-        {
-            variables.isCharging = true;
-            targetSpeed = variables.runSpeed;
-        }
-        MoveAction.Invoke(targetSpeed);
-
+        states[currentStateIndex].ExitState();
+        currentStateIndex = newIndex;
+        states[currentStateIndex].EnterState(this);
     }
-    private void MoveForward(float targetSpeed)
+    public void SwitchState(IEnemyState newState)
+    {
+        int newIndex = states.IndexOf(newState);
+        if (newIndex == -1) return;
+
+        states[currentStateIndex].ExitState();
+        currentStateIndex = newIndex;
+        states[currentStateIndex].EnterState(this);
+    }
+
+
+        public void MoveForward(float targetSpeed)
     {
 
         Vector2 targetVelocity = variables.facing * targetSpeed;
@@ -92,7 +85,7 @@ public class EnemyChaseGround : MonoBehaviour
             if (hit.collider != null && hit.collider.gameObject.CompareTag("Player"))
             {
                
-                variables.detectedPlayerDistance = (Vector2)variables.hitbox.transform.position;
+                variables.detectedPlayerDistance = (Vector2)variables.hitbox.transform.position - (Vector2)hit.collider.transform.position;
                 return true;
             }
 
@@ -122,18 +115,19 @@ public class EnemyChaseGround : MonoBehaviour
 
             
         }
-        touchingSolidGround = true;
+        variables.touchingSolidGround = true;
         return false;
     }
 
     public void FacePlayer()
     {
-        variables.chaseScript.CheckInFront(rayStartOffset: -90,amountOfRays:20);
+        CheckInFront(rayStartOffset: -90,amountOfRays:20);
 
-        if (variables.detectedPlayerDistance != new Vector2(Mathf.Infinity, Mathf.Infinity))
-        {
-            float angle = Mathf.Atan2(variables.detectedPlayerDistance.y, variables.detectedPlayerDistance.x) * Mathf.Rad2Deg;
-            variables.facing = new Vector2( Mathf.Cos(angle * Mathf.Deg2Rad), Math.Sign(variables.detectedPlayerDistance.y) * Mathf.Sin(angle * Mathf.Deg2Rad));
-        }
+        Vector2 direction = new Vector2(MathF.Sign(variables.player.transform.position.x - transform.position.x), 0);
+
+        variables.facing = direction;
     }
+
+
+
 }
