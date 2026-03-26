@@ -23,7 +23,16 @@ public class PlayerVariables : MonoBehaviour
     public float timeHealth;
     public float maxTimeHealth;
     public float initialMaxTimeHealth;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    //Dash variables start
+    public float dashSpeed = 20f;         
+    public float dashDuration = 0.15f;   
+    public float dashCooldown = 1f;       
+    public float dashTimeCost = 5f;      
+    public float dashCooldownTimer = 0f;
+    public bool hasAirDash = true;
+    public bool isDashing = false;
+    //Dash variables end
+
     void Start()
     {
         initialMaxTimeHealth = maxTimeHealth;

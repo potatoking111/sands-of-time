@@ -9,10 +9,18 @@ public class PlayerMovement : MonoBehaviour
     private PlayerVariables variables;
 
     public Action GoToLastGroundPositionAction {get;set;}
+    private float dashTimer = 0f;
+    private float dashDirection = 1f;
+    private float normalGravityScale;
+
+
+    
     void Start()
     {
         variables = gameObject.GetComponent<PlayerVariables>();
         GoToLastGroundPositionAction += GoToLastGroundPosition;
+        normalGravityScale = variables.rigidBody.gravityScale;
+
     }
     void GoToLastGroundPosition()
     {
@@ -46,10 +54,30 @@ public class PlayerMovement : MonoBehaviour
             variables.isOnGround = true;
             variables.lastSolidGroundPosition = variables.rigidBody.position;
             variables.lastSolidGroundHangDirection = hangDirection;
+            variables.hasAirDash = true;
+        }
+        if (variables.dashCooldownTimer > 0)
+            variables.dashCooldownTimer -= Time.fixedDeltaTime;
+
+        if (variables.isDashing)
+        {
+            variables.rigidBody.gravityScale = 0f;                                                   
+            dashTimer -= Time.fixedDeltaTime;
+            variables.rigidBody.linearVelocity = new Vector2(dashDirection * variables.dashSpeed, 0f);
+
+            if (dashTimer <= 0)
+            {
+                variables.isDashing = false;
+                variables.rigidBody.gravityScale = normalGravityScale;
+            }
+
         }
     }
     public void Move(Vector2 dirVector)
-{
+    {
+
+    if (variables.isDashing) return;
+
     float targetX = dirVector.x * variables.movementSpeed;
     float currentX = variables.rigidBody.linearVelocity.x;
     float rate;
@@ -81,6 +109,24 @@ public class PlayerMovement : MonoBehaviour
             variables.rigidBody.AddForce(Vector2.up*variables.jumpStrength,ForceMode2D.Impulse);
 
         }
+    }
+    public void TryDash()
+    {
+        if (variables.isDashing) return;
+        if (variables.dashCooldownTimer > 0) return;
+        if (!variables.isOnGround && !variables.hasAirDash) return;
+        if (variables.timeHealth <= variables.dashTimeCost) return; // can't afford it
+
+        if (!variables.isOnGround)
+            variables.hasAirDash = false;
+
+        dashDirection = variables.playerFacing.x >= 0 ? 1f : -1f;
+
+        variables.isDashing = true;
+        variables.dashCooldownTimer = variables.dashCooldown;
+        dashTimer = variables.dashDuration;
+
+        variables.timeManagerScript.TakeDamageAction?.Invoke(variables.dashTimeCost, DamageType.None);
     }
     public GameObject GetObjectUnder(LayerMask layer, float rayLength = 1f)
     {
