@@ -18,9 +18,10 @@ public class EnemyController : MonoBehaviour
             if (script is IEnemyState state)
             {
                 states.Add(state);
-                state.EnterState(this);
             }
         }
+        states[0].EnterState(this);
+
     }
 
     void Update()
@@ -100,8 +101,14 @@ public class EnemyController : MonoBehaviour
         public bool CheckIfAirUnder(LayerMask layer, float rayLength = 1f)
     {
         BoxCollider2D box = variables.hitbox;
-        Vector2 leftPos = new Vector2(box.transform.position.x-box.size.x/2,box.transform.position.y-box.size.y/2);
-        Vector2 rightPos = new Vector2(box.transform.position.x+box.size.x/2,box.transform.position.y-box.size.y/2);
+        Vector2 worldSize = new Vector2(
+            box.size.x * box.transform.lossyScale.x,
+            box.size.y * box.transform.lossyScale.y
+        );
+
+        
+        Vector2 leftPos = new Vector2(box.transform.position.x-worldSize.x/2,box.transform.position.y-worldSize.y/2);
+        Vector2 rightPos = new Vector2(box.transform.position.x+worldSize.x/2,box.transform.position.y-worldSize.y/2);
 
         RaycastHit2D hitLeft = Physics2D.Raycast(leftPos, Vector2.down, rayLength, layer);
         RaycastHit2D hitRight = Physics2D.Raycast(rightPos, Vector2.down, rayLength, layer);
@@ -119,6 +126,37 @@ public class EnemyController : MonoBehaviour
         return false;
     }
 
+    // direction of side thats on ground
+            public Vector2 BetterCheckIfAirUnder(LayerMask layer, float rayLength = 1f)
+    {
+        BoxCollider2D box = variables.hitbox;
+    
+        Vector2 worldSize = new Vector2(
+            box.size.x * box.transform.lossyScale.x,
+            box.size.y * box.transform.lossyScale.y
+        );
+
+        
+        Vector2 leftPos = new Vector2(box.transform.position.x-worldSize.x/2,box.transform.position.y-worldSize.y/2);
+        Vector2 rightPos = new Vector2(box.transform.position.x+worldSize.x/2,box.transform.position.y-worldSize.y/2);
+
+        RaycastHit2D hitLeft = Physics2D.Raycast(leftPos, Vector2.down, rayLength, layer);
+        RaycastHit2D hitRight = Physics2D.Raycast(rightPos, Vector2.down, rayLength, layer);
+        Debug.DrawRay(leftPos, Vector2.down * rayLength, Color.red);
+        Debug.DrawRay(rightPos, Vector2.down * rayLength, Color.green);
+
+        
+        if (hitLeft.collider == null || hitRight.collider == null)
+        {
+                if (hitLeft.collider == null && hitRight.collider == null) return Vector2.zero;
+                if (hitLeft.collider == null) return Vector2.right;
+                return Vector2.left;
+            
+        }
+        variables.touchingSolidGround = true;
+        return Vector2.zero;
+    }
+
     public void FacePlayer()
     {
         CheckInFront(rayStartOffset: -90,amountOfRays:20);
@@ -128,6 +166,41 @@ public class EnemyController : MonoBehaviour
         variables.facing = direction;
     }
 
+    // test chatted code
+    public void JumpToPoint(Vector2 target, float time)
+    {
+        Rigidbody2D rb = variables.rigidBody;
+
+        Vector2 start = transform.position;
+
+        float gravity = Physics2D.gravity.y * rb.gravityScale;
+
+        // Calculate required velocity
+        Vector2 velocity = new Vector2(
+            (target.x - start.x) / time,
+            (target.y - start.y - 0.5f * gravity * time * time) / time
+        );
+
+        rb.linearVelocity = velocity;
+    }
+    public void JumpWithPeak(Vector2 target, float peakHeight, float totalTime)
+{
+    Rigidbody2D rb = variables.rigidBody;
+
+    Vector2 start = transform.position;
+
+    float gravity = Physics2D.gravity.y * rb.gravityScale;
+
+    float timeToPeak = totalTime / 2f;
+
+    // Calculate vertical velocity needed to reach peak
+    float vy = (peakHeight - start.y - 0.5f * gravity * timeToPeak * timeToPeak) / timeToPeak;
+
+    // Calculate horizontal velocity
+    float vx = (target.x - start.x) / totalTime;
+
+    rb.linearVelocity = new Vector2(vx, vy);
+}
 
 
 }

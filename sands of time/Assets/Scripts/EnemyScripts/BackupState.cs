@@ -52,7 +52,6 @@ public class BackupState : MonoBehaviour, IEnemyState
     public bool CheckEntryConditions(EnemyController enemy)
     {
         enemy.CheckInFront(rayStartOffset: this.senseAngleOffset);
-        Debug.Log("Player distance: " + enemy.variables.detectedPlayerDistance.x);
         if (Mathf.Abs(enemy.variables.detectedPlayerDistance.x)< senseDistance)
         {
             return true;
