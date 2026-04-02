@@ -111,7 +111,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7657352609999149116}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.06645, y: 0.33751, z: 0}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
@@ -188,7 +188,7 @@ BoxCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3fa5e79a3656cec48a460a91cd6d3c14, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -239,7 +239,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 3
+  m_GravityScale: 6
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -247,9 +247,9 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &1770020149938508131
 MonoBehaviour:
@@ -285,7 +285,7 @@ MonoBehaviour:
   playerAttackScript: {fileID: 3099770501195926337}
   footRaycastDistance: 0.6
   hitbox: {fileID: 4784942993231876354}
-  jumpStrength: 12
+  jumpStrength: 20
   atttackTimePeriod: 0.14
   timeManagerScript: {fileID: 2504093500526795359}
   lastSolidGroundPosition: {x: 0, y: 0}
@@ -294,6 +294,13 @@ MonoBehaviour:
   timeHealth: 100
   maxTimeHealth: 100
   initialMaxTimeHealth: 0
+  dashSpeed: 25
+  dashDuration: 0.2
+  dashCooldown: 0.7
+  dashTimeCost: 5
+  dashCooldownTimer: 0
+  hasAirDash: 1
+  isDashing: 0
 --- !u!114 &5892543906077938532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -427,6 +434,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 71a35620-6930-4b96-8212-1ac6ed7b1f33
     m_ActionName: 'Player/MoveLeft[/Keyboard/a]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 500d9d46-14ed-46ce-87bc-63620b925b29
+    m_ActionName: 'Player/Dash[/Keyboard/leftShift]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
