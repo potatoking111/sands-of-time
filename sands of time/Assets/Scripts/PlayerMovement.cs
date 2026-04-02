@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 public class PlayerMovement : MonoBehaviour
 {
-    public  Action<Vector2> MoveAction {get;set;}
+    public  Action<Vector2,float,float,float> MoveAction {get;set;}
     public  Action JumpAction {get;set;}
     private string[] defaultLayerNames = new string[]{"Ground"};
     private PlayerVariables variables;
@@ -73,12 +73,15 @@ public class PlayerMovement : MonoBehaviour
 
         }
     }
-    public void Move(Vector2 dirVector)
+    public void Move(Vector2 dirVector,float speedOverride = -1,float accelOverride = -1,float decelOverride = -1)
     {
+    if (accelOverride == -1) accelOverride = variables.accelertion;
+    if (speedOverride == -1) speedOverride = variables.movementSpeed;
+    if (decelOverride == -1) decelOverride = variables.decelertion;
 
     if (variables.isDashing) return;
 
-    float targetX = dirVector.x * variables.movementSpeed;
+    float targetX = dirVector.x * speedOverride;
     float currentX = variables.rigidBody.linearVelocity.x;
     float rate;
     bool isPressingMove = dirVector.x != 0;
@@ -86,19 +89,19 @@ public class PlayerMovement : MonoBehaviour
     if (isPressingMove)
     {
         if (variables.isOnGround)
-            rate = variables.accelertion;
+            rate = accelOverride;
         else
-            rate = variables.accelertion * variables.airControlFactor;
+            rate = accelOverride * variables.airControlFactor;
     }
     else
     {
         if (variables.isOnGround)
-            rate = variables.decelertion;
+            rate = decelOverride;
         else
-            rate = variables.decelertion * variables.airControlFactor;
+            rate = decelOverride * variables.airControlFactor;
     }
 
-    float newX = Mathf.MoveTowards(currentX, targetX, rate * variables.movementSpeed * Time.fixedDeltaTime);
+    float newX = Mathf.MoveTowards(currentX, targetX, rate * speedOverride * Time.fixedDeltaTime);
     variables.rigidBody.linearVelocity = new Vector2(newX, variables.rigidBody.linearVelocity.y);
 }
     public void Jump()

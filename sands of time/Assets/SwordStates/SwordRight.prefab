@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6506654638638506028}
   - component: {fileID: -5369787770764950331}
   - component: {fileID: -3643064038573920383}
+  - component: {fileID: 2407901413450300231}
   m_Layer: 0
   m_Name: SwordRight
   m_TagString: Untagged
@@ -138,3 +139,23 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2407901413450300231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5284682695085263327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f35b3039e7394774eb817ff9152fcbbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordDamageScript
+  damage: 5
+  doneDamage: 0
+  variables: {fileID: 0}
+  knockbackDuration: 0.2
+  knockbackSpeed: 10
+  knockbackAcceleration: 20
+  knockbackDeceleration: 40
+  knockbackTimer: 0

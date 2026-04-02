@@ -1,0 +1,55 @@
+using UnityEngine;
+
+public class SwordDamageScript : MonoBehaviour
+{
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public float damage;
+    public bool doneDamage = false;
+    public PlayerVariables variables;
+    public float knockbackDuration = 0.2f;
+    public float knockbackSpeed = 10f;
+    public float knockbackAcceleration = 20f;
+    public float knockbackDeceleration = 40f;
+    public float knockbackTimer;
+    
+    void Start()
+    {
+        this.gameObject.SetActive(true);
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        if (knockbackTimer > 0)
+        {
+            knockbackTimer -= Time.deltaTime;
+            if (knockbackTimer <= 0)
+            {                    
+                Vector2 facing = variables.playerFacing;
+
+                variables.playerMovementScript.MoveAction?.Invoke(-facing,knockbackSpeed,knockbackAcceleration,knockbackDeceleration);
+            }
+        }
+        if (doneDamage)
+        {
+            return;
+        }
+        Collider2D[] hitColliders = Physics2D.OverlapBoxAll(transform.position, GetComponent<BoxCollider2D>().size, 0);
+        foreach (Collider2D collider in hitColliders)
+        {
+            if (collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            {
+                EnemyController health = collider.gameObject.GetComponent<EnemyController>();
+                if (health != null)
+                {
+                    health.TakeDamage(damage);
+                    doneDamage = true;
+                    Vector2 facing = variables.playerFacing;
+                    variables.playerMovementScript.MoveAction?.Invoke(-facing,knockbackSpeed,knockbackAcceleration,knockbackDeceleration);
+                    knockbackTimer = knockbackDuration;
+                    break;
+                }
+            }
+    }
+    }
+}
