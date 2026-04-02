@@ -202,5 +202,14 @@ public class EnemyController : MonoBehaviour
     rb.linearVelocity = new Vector2(vx, vy);
 }
 
+    public void TakeDamage(float damage)
+    {
+        variables.health -= damage;
+        if (variables.health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
 
 }

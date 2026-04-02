@@ -19,6 +19,7 @@ public class EnemyVariables : MonoBehaviour
     public EnemyContactDamage contactDamageScript;
     public GameObject player;
     public bool touchingSolidGround;
+    public float health = 20f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

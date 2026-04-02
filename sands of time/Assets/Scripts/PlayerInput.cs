@@ -71,7 +71,7 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        variables.playerMovementScript.MoveAction?.Invoke(moveInput);
+        variables.playerMovementScript.MoveAction?.Invoke(moveInput,-1,-1,-1);
     }
     private void OnMoveEditFace(Vector2 dir)
     {
