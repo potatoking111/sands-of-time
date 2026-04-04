@@ -113,15 +113,11 @@ public class EnemyController : MonoBehaviour
         public bool CheckIfAirUnder(LayerMask layer, float rayLength = 1f)
     {
         BoxCollider2D box = variables.hitbox;
-        Vector2 worldSize = new Vector2(
-            box.size.x * box.transform.lossyScale.x,
-            box.size.y * box.transform.lossyScale.y
-        );
 
-        
-        Vector2 leftPos = new Vector2(box.transform.position.x-worldSize.x/2,box.transform.position.y-worldSize.y/2);
-        Vector2 rightPos = new Vector2(box.transform.position.x+worldSize.x/2,box.transform.position.y-worldSize.y/2);
+        Bounds bounds = box.bounds;
 
+        Vector2 leftPos = new Vector2(bounds.min.x, bounds.min.y);
+        Vector2 rightPos = new Vector2(bounds.max.x, bounds.min.y);
         RaycastHit2D hitLeft = Physics2D.Raycast(leftPos, Vector2.down, rayLength, layer);
         RaycastHit2D hitRight = Physics2D.Raycast(rightPos, Vector2.down, rayLength, layer);
         Debug.DrawRay(leftPos, Vector2.down * rayLength, Color.red);
@@ -142,15 +138,11 @@ public class EnemyController : MonoBehaviour
             public Vector2 BetterCheckIfAirUnder(LayerMask layer, float rayLength = 1f)
     {
         BoxCollider2D box = variables.hitbox;
-    
-        Vector2 worldSize = new Vector2(
-            box.size.x * box.transform.lossyScale.x,
-            box.size.y * box.transform.lossyScale.y
-        );
 
-        
-        Vector2 leftPos = new Vector2(box.transform.position.x-worldSize.x/2,box.transform.position.y-worldSize.y/2);
-        Vector2 rightPos = new Vector2(box.transform.position.x+worldSize.x/2,box.transform.position.y-worldSize.y/2);
+        Bounds bounds = box.bounds;
+
+        Vector2 leftPos = new Vector2(bounds.min.x, bounds.min.y);
+        Vector2 rightPos = new Vector2(bounds.max.x, bounds.min.y);
 
         RaycastHit2D hitLeft = Physics2D.Raycast(leftPos, Vector2.down, rayLength, layer);
         RaycastHit2D hitRight = Physics2D.Raycast(rightPos, Vector2.down, rayLength, layer);
