@@ -31,10 +31,12 @@ public class ShootState : EnemyStateBase
         if (timer == 0f)
         {
             GameObject projectileShot = Instantiate(projectile, enemy.transform.position, Quaternion.identity);
+            projectileShot.transform.localScale = this.transform.localScale; // make the projectile the same size as the enemy (so it can be scaled with the enemy if needed)
+
             projectileShot.GetComponent<EnemyVariables>().facing = variables.facing;
             projectileShot.SetActive(true);
-            
             GameObject projectileShot2 = Instantiate(projectile, enemy.transform.position, Quaternion.identity);
+            projectileShot2 .transform.localScale = this.transform.localScale; // make the projectile the same size as the enemy (so it can be scaled with the enemy if needed)
 
             projectileShot2.GetComponent<EnemyVariables>().facing = -variables.facing;
             projectileShot2.SetActive(true);
