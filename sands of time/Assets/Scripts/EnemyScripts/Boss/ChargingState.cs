@@ -1,28 +1,28 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class ChargingState : MonoBehaviour, IEnemyState
+public class ChargingState : EnemyStateBase
 {
     private EnemyController enemy;
     private string[] groundLayer = new string[]{"Ground"};
-    public MonoBehaviour[] nextStates;
-    public IEnemyState NextState(int i)  => nextStates[i] as IEnemyState;
-
     public Collider2D areaOfAttackCollider;
     public float timesFlippedDirection = 0;
 
     public float chargeSpeed = 10f;
-    public void EnterState(EnemyController enemy)
+
+    public override void EnterState(EnemyController enemy)
     {
+        base.EnterState(enemy);
         this.enemy = enemy;
         timesFlippedDirection = 0;
         enemy.FacePlayer();
         Debug.Log("Entering Charging State");
-        enemy.variables.touchingSolidGround = true;
+        enemy.variables.touchingSolidGround = false;
     }
 
-    public void UpdateState()
+    public override void UpdateState()
     {
+        base.UpdateState();
         EnemyVariables variables = enemy.variables;
         float targetSpeed = chargeSpeed;
         variables.isCharging = false;
@@ -50,9 +50,10 @@ public class ChargingState : MonoBehaviour, IEnemyState
     }
 
 
-    public bool CheckEntryConditions(EnemyController enemy)
+    public override bool CheckEntryConditions(EnemyController enemy)
     {
         return areaOfAttackCollider.IsTouching(enemy.variables.player.GetComponent<Collider2D>());
     }
-    public void ExitState() { UnityEngine.Debug.Log("Exiting Charging State"); }
+    public override void ExitState() { base.ExitState(); }
 }
+

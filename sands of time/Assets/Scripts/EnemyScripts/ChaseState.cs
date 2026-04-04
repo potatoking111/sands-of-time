@@ -1,20 +1,22 @@
 using UnityEngine;
 
-public class ChaseState : MonoBehaviour, IEnemyState
+public class ChaseState : EnemyStateBase
 {
     private EnemyController enemy;
     private string[] groundLayer = new string[]{"Ground"};
     public float chaseSpeed = 5f;
-    public MonoBehaviour[] nextStates;
-    public IEnemyState NextState(int i)  => nextStates[i] as IEnemyState;
+
 
     public float senseAngleOffset;
-    public void EnterState(EnemyController enemy)
+    public string Label { get; } = "Chase State"; // just for clarity in  editor
+
+    public override void EnterState(EnemyController enemy)
     {
+        base.EnterState(enemy);
         this.enemy = enemy;
     }
 
-    public void UpdateState()
+    public override void UpdateState()
     {
         EnemyVariables variables = enemy.variables;
         float targetSpeed = chaseSpeed;
@@ -44,9 +46,12 @@ public class ChaseState : MonoBehaviour, IEnemyState
     }
 
 
-    public bool CheckEntryConditions(EnemyController enemy)
+    public override bool CheckEntryConditions(EnemyController enemy)
     {
         return enemy.CheckInFront(rayStartOffset: this.senseAngleOffset);
     }
-    public void ExitState() { UnityEngine.Debug.Log("Exiting Chase State"); }
+    public override void ExitState()
+    {
+        base.ExitState();
+    }
 }

@@ -81,8 +81,8 @@ public class PlayerMovement : MonoBehaviour
 
     if (variables.isDashing) return;
 
-    float targetX = dirVector.x * speedOverride;
-    float currentX = variables.rigidBody.linearVelocity.x;
+    Vector2 target = new Vector2(dirVector.x * speedOverride, dirVector.y * speedOverride);
+    Vector2 current = variables.rigidBody.linearVelocity;
     float rate;
     bool isPressingMove = dirVector.x != 0;
 
@@ -101,8 +101,12 @@ public class PlayerMovement : MonoBehaviour
             rate = decelOverride * variables.airControlFactor;
     }
 
-    float newX = Mathf.MoveTowards(currentX, targetX, rate * speedOverride * Time.fixedDeltaTime);
-    variables.rigidBody.linearVelocity = new Vector2(newX, variables.rigidBody.linearVelocity.y);
+    Vector2 newVelocity = new Vector2(Mathf.MoveTowards(current.x, target.x, rate * speedOverride * Time.fixedDeltaTime), Mathf.MoveTowards(current.y, target.y, rate * speedOverride * Time.fixedDeltaTime));
+    if (dirVector.y == 0)
+        {
+            newVelocity.y = current.y;
+        }
+    variables.rigidBody.linearVelocity = newVelocity;
 }
     public void Jump()
     {

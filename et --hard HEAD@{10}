@@ -1,0 +1,50 @@
+[33mcc805a5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mcaleb-new[m[33m, [m[1;32mcaleb-branch[m[33m)[m HEAD@{0}: reset: moving to HEAD
+[33mcc805a5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mcaleb-new[m[33m, [m[1;32mcaleb-branch[m[33m)[m HEAD@{1}: checkout: moving from caleb-branch to caleb-new
+[33mcc805a5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mcaleb-new[m[33m, [m[1;32mcaleb-branch[m[33m)[m HEAD@{2}: checkout: moving from main to caleb-branch
+[33mbed5f20[m[33m ([m[1;32mmain[m[33m)[m HEAD@{3}: reset: moving to HEAD
+[33mbed5f20[m[33m ([m[1;32mmain[m[33m)[m HEAD@{4}: pull --tags origin main: Fast-forward
+[33md3929c7[m HEAD@{5}: pull --tags origin main: Fast-forward
+[33m63ae37d[m[33m ([m[1;31morigin/shane-branch4[m[33m)[m HEAD@{6}: checkout: moving from boss-branch to main
+[33m6957bd1[m[33m ([m[1;31morigin/boss-branch[m[33m, [m[1;32mboss-branch[m[33m)[m HEAD@{7}: commit: small changes
+[33ma98d24b[m HEAD@{8}: commit: made the boss
+[33m63ae37d[m[33m ([m[1;31morigin/shane-branch4[m[33m)[m HEAD@{9}: checkout: moving from main to boss-branch
+[33m63ae37d[m[33m ([m[1;31morigin/shane-branch4[m[33m)[m HEAD@{10}: checkout: moving from caleb-branch to main
+[33mcc805a5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mcaleb-new[m[33m, [m[1;32mcaleb-branch[m[33m)[m HEAD@{11}: checkout: moving from main to caleb-branch
+[33m63ae37d[m[33m ([m[1;31morigin/shane-branch4[m[33m)[m HEAD@{12}: pull: Fast-forward
+[33m2ef9312[m HEAD@{13}: checkout: moving from new_enemy_system to main
+[33m7a65f8c[m[33m ([m[1;31morigin/new_enemy_system[m[33m, [m[1;32mnew_enemy_system[m[33m)[m HEAD@{14}: commit: enemy rework
+[33m2ef9312[m HEAD@{15}: checkout: moving from main to new_enemy_system
+[33m2ef9312[m HEAD@{16}: pull: Fast-forward
+[33m80f8734[m HEAD@{17}: commit: fucky scenes
+[33m5a66b13[m HEAD@{18}: pull: Fast-forward
+[33m77d9a16[m HEAD@{19}: pull: Fast-forward
+[33m674dded[m[33m ([m[1;31morigin/shane-branch2[m[33m)[m HEAD@{20}: checkout: moving from caleb-branch to main
+[33mcc805a5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mcaleb-new[m[33m, [m[1;32mcaleb-branch[m[33m)[m HEAD@{21}: commit: fixed lunge enemy
+[33mdd48b8d[m HEAD@{22}: checkout: moving from main to caleb-branch
+[33m674dded[m[33m ([m[1;31morigin/shane-branch2[m[33m)[m HEAD@{23}: pull: Fast-forward
+[33ma6bbbe5[m[33m ([m[1;31morigin/shane-branch[m[33m)[m HEAD@{24}: checkout: moving from caleb-branch to main
+[33mdd48b8d[m HEAD@{25}: commit: small changes
+[33m7ec5aca[m HEAD@{26}: commit: aaa
+[33m491a176[m HEAD@{27}: commit: fixed stuff
+[33mef6e8d0[m HEAD@{28}: commit: a lot of enemy and player stuff
+[33ma6bbbe5[m[33m ([m[1;31morigin/shane-branch[m[33m)[m HEAD@{29}: checkout: moving from caleb-branch to caleb-branch
+[33ma6bbbe5[m[33m ([m[1;31morigin/shane-branch[m[33m)[m HEAD@{30}: merge origin/main: Fast-forward
+[33ma7fa5fa[m HEAD@{31}: checkout: moving from main to caleb-branch
+[33ma6bbbe5[m[33m ([m[1;31morigin/shane-branch[m[33m)[m HEAD@{32}: pull: Fast-forward
+[33ma7fa5fa[m HEAD@{33}: checkout: moving from sword-setup to main
+[33mb417c53[m[33m ([m[1;31morigin/sword-setup[m[33m, [m[1;32msword-setup[m[33m)[m HEAD@{34}: commit: added attacks + some movement and facing changes
+[33ma7fa5fa[m HEAD@{35}: checkout: moving from caleb-branch to sword-setup
+[33ma7fa5fa[m HEAD@{36}: checkout: moving from main to caleb-branch
+[33ma7fa5fa[m HEAD@{37}: checkout: moving from main to main
+[33ma7fa5fa[m HEAD@{38}: commit: basic setup
+[33m9d13c04[m HEAD@{39}: commit: trying
+[33me2a78f1[m HEAD@{40}: Branch: renamed refs/heads/main to refs/heads/main
+[33me2a78f1[m HEAD@{42}: commit: first commit
+[33m21338e7[m HEAD@{43}: Branch: renamed refs/heads/main to refs/heads/main
+[33m21338e7[m HEAD@{45}: commit: first commit
+[33m68282ca[m HEAD@{46}: Branch: renamed refs/heads/main to refs/heads/main
+[33m68282ca[m HEAD@{48}: commit: first commit
+[33m39cc485[m HEAD@{49}: Branch: renamed refs/heads/main to refs/heads/main
+[33m39cc485[m HEAD@{51}: commit: first commit
+[33m3efbe33[m HEAD@{52}: Branch: renamed refs/heads/main to refs/heads/main
+[33m3efbe33[m HEAD@{54}: commit (initial): first commit

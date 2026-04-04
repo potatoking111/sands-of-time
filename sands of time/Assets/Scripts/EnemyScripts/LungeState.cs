@@ -1,28 +1,31 @@
 using UnityEngine;
 
-public class LungeState : MonoBehaviour, IEnemyState
+public class LungeState : EnemyStateBase
 {
     private EnemyController enemy;
     private string[] groundLayer = new string[]{"Ground"};
-    public MonoBehaviour[] nextStates;
-    public IEnemyState NextState(int i)  => nextStates[i] as IEnemyState;
+
     private float attackTimer;
+    public string Label { get; } = "Lunge State"; // just for clarity in  editor
+
 
     public GameObject attackObject;
     public float lungeAngle;
     public float jumpForceMod;
     public float attackDuration;
     
-    public void EnterState(EnemyController enemy)
+    public override void EnterState(EnemyController enemy)
     {
+        base.EnterState(enemy);
         this.enemy = enemy;
         attackTimer = 0f;
         Debug.Log("Entering Lunge State");
 
     }
 
-    public void UpdateState()
+    public override void UpdateState()
     {
+        base.UpdateState();
         EnemyVariables variables = enemy.variables;
         float targetSpeed = variables.walkSpeed;
         variables.isCharging = false;
@@ -50,7 +53,7 @@ public class LungeState : MonoBehaviour, IEnemyState
             }
         }
     }
-    public bool CheckEntryConditions(EnemyController enemy)
+    public override bool CheckEntryConditions(EnemyController enemy)
     {
         return true;
     }
@@ -80,6 +83,6 @@ public class LungeState : MonoBehaviour, IEnemyState
 
     }
 
-    public void ExitState() {UnityEngine.Debug.Log("Exiting Backup State"); attackObject.SetActive(false);        enemy.FacePlayer();
+    public override void ExitState() {base.ExitState(); attackObject.SetActive(false);        enemy.FacePlayer();
 }
 }

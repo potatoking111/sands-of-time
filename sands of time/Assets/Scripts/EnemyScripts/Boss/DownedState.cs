@@ -1,23 +1,24 @@
 using UnityEngine;
 
-public class SmashState : EnemyStateBase
+public class DownedState : EnemyStateBase
 {
     private EnemyController enemy;
 
 
 
-    public float smashTime = 1f;
+    public float downedTime = 1f;
     private float timer = 0f;
-    public float smashPower = 20f;
-    public string Label  = "Smash State"; // just for clarity in  editor
-
+    public float damageTaken = 0;
+    public float damageThreshold = 10f;
+    public string Label = "Downed"; // just for clarity in  editor
     public override void EnterState(EnemyController enemy)
     {
         base.EnterState(enemy);
         this.enemy = enemy;
         enemy.FacePlayer();
-        Debug.Log("Entering Smash State");
+        Debug.Log("Entering Downed State");
         timer = 0f;
+        damageTaken = 0;
     }
 
     public override void UpdateState()
@@ -29,14 +30,13 @@ public class SmashState : EnemyStateBase
         {
             variables.rigidBody.linearVelocity = Vector2.zero;
 
-            variables.rigidBody.AddForce(Vector2.down * smashPower, ForceMode2D.Impulse);
         }
 
 
  
 
 
-        if (timer >= smashTime)
+        if (timer >= downedTime)
         {
             enemy.SwitchState(NextState(Random.Range(0, nextStates.Length)));
         }
@@ -47,7 +47,12 @@ public class SmashState : EnemyStateBase
 
     public override bool CheckEntryConditions(EnemyController enemy)
     {
-        return true;
+        if (damageTaken >= damageThreshold)
+        {
+            return true;
+        }
+        return false;
+
     }
     public override void ExitState() { base.ExitState(); }
 }

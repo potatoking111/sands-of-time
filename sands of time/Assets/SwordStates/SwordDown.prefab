@@ -155,7 +155,8 @@ MonoBehaviour:
   doneDamage: 0
   variables: {fileID: 0}
   knockbackDuration: 0.2
-  knockbackSpeed: 10
-  knockbackAcceleration: 20
+  knockbackSpeed: 15
+  knockbackAcceleration: 30
   knockbackDeceleration: 40
-  knockbackTimer: 0
+  knockbackTimer: 0.1
+  meterGainOnHit: 10

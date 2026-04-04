@@ -4,13 +4,12 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DefaultState : MonoBehaviour, IEnemyState
+public class DefaultState : EnemyStateBase
 {
     private EnemyController enemy;
     private string[] groundLayer = new string[]{"Ground"};
     
-    public MonoBehaviour[] nextStates;
-    public IEnemyState NextState(int i)  => nextStates[i] as IEnemyState;
+
     public float walkSpeed;
 
     public float senseAngleOffset;
@@ -18,12 +17,21 @@ public class DefaultState : MonoBehaviour, IEnemyState
     public float attackCooldown = 2f;
     private float attackTimer = 0f;
 
+    public MonoBehaviour downedState; // assign in inspector
+    public MonoBehaviour enragedStartState; // assign in inspector
     public Dictionary<IEnemyState,float> stateWeights = new Dictionary<IEnemyState, float>();
 
-    public void EnterState(EnemyController enemy)
+    
+    public void Start()
     {
+        Debug.Log("Default State Start");
+        stateLabel = "Default State";
+    }
+    public override void EnterState(EnemyController enemy)
+    {
+        base.EnterState(enemy);
+        Debug.Log("Entering Default State AHHH");
         this.enemy = enemy;
-        Debug.Log("Entering Boss Default State");
         EnemyVariables variables = enemy.variables;
 
         int randomDirection = Random.Range(0, 2) * 2 - 1; // Randomly -1 or 1
@@ -40,10 +48,48 @@ public class DefaultState : MonoBehaviour, IEnemyState
             }
         }
         }
+        enemy.TakeDamageAction -= DownedEntry; // ensure not added multiple times might be wrong like order idk 
+        enemy.TakeDamageAction += DownedEntry;
+
+        enemy.TakeDamageAction -= EnragedEntry; // ensure not added multiple times might be wrong like order idk 
+        enemy.TakeDamageAction += EnragedEntry;
     }
 
-    public void UpdateState()
+    private void DownedEntry(float damage)
     {
+
+        if (downedState is DownedState downed)
+        {
+            downed.damageTaken += damage;   
+            if (downed.CheckEntryConditions(enemy))
+            {
+                enemy.SwitchState(downed);
+
+                enemy.TakeDamageAction -= DownedEntry; // ensure not added multiple times might be wrong like order idk 
+
+            }
+        }
+
+    }
+    private void EnragedEntry(float damage)
+    {
+
+        if (enragedStartState is DownedState enraged)
+        {
+            enraged.damageTaken += damage;   
+            if (enraged.CheckEntryConditions(enemy))
+            {
+                enemy.TakeDamageAction -= DownedEntry; // ensure not added multiple times might be wrong like order idk 
+                enemy.TakeDamageAction -= EnragedEntry; // ensure not added multiple times might be wrong like order idk 
+                enemy.SwitchState(enraged);
+
+            }
+        }
+
+    }
+    public override void UpdateState()
+    {
+        base.UpdateState();
         EnemyVariables variables = enemy.variables;
         float targetSpeed = walkSpeed;
         // randomize direction of movement  
@@ -97,7 +143,7 @@ public class DefaultState : MonoBehaviour, IEnemyState
 
 
 
-    public bool CheckEntryConditions(EnemyController enemy)
+    public override bool CheckEntryConditions(EnemyController enemy)
     {
         return enemy.CheckInFront(rayStartOffset: this.senseAngleOffset);
     }
@@ -125,5 +171,5 @@ public class DefaultState : MonoBehaviour, IEnemyState
 
         return weights.Length - 1; // fallback (just in case)
     }
-    public void ExitState() {UnityEngine.Debug.Log("Exiting Patrol State"); }
+    public override void ExitState() {base.ExitState(); }
 }
