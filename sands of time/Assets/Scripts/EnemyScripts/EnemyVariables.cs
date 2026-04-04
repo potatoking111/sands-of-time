@@ -6,7 +6,14 @@ public class EnemyVariables : MonoBehaviour
     public BoxCollider2D hitbox;
     public float senseRadius;
     public float senseAngleOffset;
-    public Vector2 facing;
+    private Vector2 _facing;
+    public Vector2 facing
+    {
+        get { return _facing; }
+        set { _facing = value; this.spriteRenderer.flipX = value.x > 0; }
+    }
+
+
     public float walkSpeed;
     public float runSpeed;
     public bool isCharging = false;
@@ -20,6 +27,8 @@ public class EnemyVariables : MonoBehaviour
     public GameObject player;
     public bool touchingSolidGround;
     public float health = 20f;
+
+    public SpriteRenderer spriteRenderer;   
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

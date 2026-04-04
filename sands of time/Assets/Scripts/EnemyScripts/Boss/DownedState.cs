@@ -1,10 +1,9 @@
 using UnityEngine;
 
-public class DownedState : MonoBehaviour, IEnemyState
+public class DownedState : EnemyStateBase
 {
     private EnemyController enemy;
-    public MonoBehaviour[] nextStates;
-    public IEnemyState NextState(int i)  => nextStates[i] as IEnemyState;
+
 
 
     public float downedTime = 1f;
@@ -12,8 +11,9 @@ public class DownedState : MonoBehaviour, IEnemyState
     public float damageTaken = 0;
     public float damageThreshold = 10f;
     public string Label = "Downed"; // just for clarity in  editor
-    public void EnterState(EnemyController enemy)
+    public override void EnterState(EnemyController enemy)
     {
+        base.EnterState(enemy);
         this.enemy = enemy;
         enemy.FacePlayer();
         Debug.Log("Entering Downed State");
@@ -21,8 +21,9 @@ public class DownedState : MonoBehaviour, IEnemyState
         damageTaken = 0;
     }
 
-    public void UpdateState()
+    public override void UpdateState()
     {
+        base.UpdateState();
         EnemyVariables variables = enemy.variables;
 
         if (timer == 0f)
@@ -44,7 +45,7 @@ public class DownedState : MonoBehaviour, IEnemyState
     }
 
 
-    public bool CheckEntryConditions(EnemyController enemy)
+    public override bool CheckEntryConditions(EnemyController enemy)
     {
         if (damageTaken >= damageThreshold)
         {
@@ -53,5 +54,5 @@ public class DownedState : MonoBehaviour, IEnemyState
         return false;
 
     }
-    public void ExitState() { UnityEngine.Debug.Log("Exiting Downed State"); }
+    public override void ExitState() { base.ExitState(); }
 }

@@ -1,11 +1,10 @@
 using UnityEngine;
 
-public class BackupState : MonoBehaviour, IEnemyState
+public class BackupState : EnemyStateBase
 {
     private EnemyController enemy;
     private string[] groundLayer = new string[]{"Ground"};
-    public MonoBehaviour[] nextStates;
-    public IEnemyState NextState(int i)  => nextStates[i] as IEnemyState;
+
     public float backupSpeed;
     public float backupDuration;
     private float backupTimer;
@@ -13,15 +12,17 @@ public class BackupState : MonoBehaviour, IEnemyState
     public float senseDistance;
     public string Label { get; } = "Backup State"; // just for clarity in  editor
 
-    public void EnterState(EnemyController enemy)
+    public override void EnterState(EnemyController enemy)
     {
+        base.EnterState(enemy);
         this.enemy = enemy;
         backupTimer = 0f;
         Debug.Log("Entering Backup State");
     }
 
-    public void UpdateState()
+    public override void UpdateState()
     {
+        base.UpdateState();
         EnemyVariables variables = enemy.variables;
         float targetSpeed = backupSpeed;
         variables.isCharging = false;
@@ -51,7 +52,7 @@ public class BackupState : MonoBehaviour, IEnemyState
         
     }
 
-    public bool CheckEntryConditions(EnemyController enemy)
+    public override bool CheckEntryConditions(EnemyController enemy)
     {
         enemy.CheckInFront(rayStartOffset: this.senseAngleOffset);
         if (Mathf.Abs(enemy.variables.detectedPlayerDistance.x)< senseDistance)
@@ -62,5 +63,8 @@ public class BackupState : MonoBehaviour, IEnemyState
     }
 
 
-    public void ExitState() {UnityEngine.Debug.Log("Exiting Backup State"); }
+    public override void ExitState()
+    {
+        base.ExitState();
+    }
 }

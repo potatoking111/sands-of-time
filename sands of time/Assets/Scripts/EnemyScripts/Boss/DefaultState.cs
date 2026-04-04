@@ -4,13 +4,12 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DefaultState : MonoBehaviour, IEnemyState
+public class DefaultState : EnemyStateBase
 {
     private EnemyController enemy;
     private string[] groundLayer = new string[]{"Ground"};
     
-    public MonoBehaviour[] nextStates;
-    public IEnemyState NextState(int i)  => nextStates[i] as IEnemyState;
+
     public float walkSpeed;
 
     public float senseAngleOffset;
@@ -21,14 +20,18 @@ public class DefaultState : MonoBehaviour, IEnemyState
     public MonoBehaviour downedState; // assign in inspector
     public MonoBehaviour enragedStartState; // assign in inspector
     public Dictionary<IEnemyState,float> stateWeights = new Dictionary<IEnemyState, float>();
-    public string Label= "Default State"; // just for clarity in  editor
 
     
-
-    public void EnterState(EnemyController enemy)
+    public void Start()
     {
+        Debug.Log("Default State Start");
+        stateLabel = "Default State";
+    }
+    public override void EnterState(EnemyController enemy)
+    {
+        base.EnterState(enemy);
+        Debug.Log("Entering Default State AHHH");
         this.enemy = enemy;
-        Debug.Log("Entering Boss Default State" + Label);
         EnemyVariables variables = enemy.variables;
 
         int randomDirection = Random.Range(0, 2) * 2 - 1; // Randomly -1 or 1
@@ -84,8 +87,9 @@ public class DefaultState : MonoBehaviour, IEnemyState
         }
 
     }
-    public void UpdateState()
+    public override void UpdateState()
     {
+        base.UpdateState();
         EnemyVariables variables = enemy.variables;
         float targetSpeed = walkSpeed;
         // randomize direction of movement  
@@ -139,7 +143,7 @@ public class DefaultState : MonoBehaviour, IEnemyState
 
 
 
-    public bool CheckEntryConditions(EnemyController enemy)
+    public override bool CheckEntryConditions(EnemyController enemy)
     {
         return enemy.CheckInFront(rayStartOffset: this.senseAngleOffset);
     }
@@ -167,5 +171,5 @@ public class DefaultState : MonoBehaviour, IEnemyState
 
         return weights.Length - 1; // fallback (just in case)
     }
-    public void ExitState() {UnityEngine.Debug.Log("Exiting Patrol State"); }
+    public override void ExitState() {base.ExitState(); }
 }

@@ -1,11 +1,9 @@
 using UnityEngine;
 
-public class ProjectileState : MonoBehaviour, IEnemyState
+public class ProjectileState : EnemyStateBase
 {
     private EnemyController enemy;
     private string[] groundLayer = new string[]{"Ground"};
-    public MonoBehaviour[] nextStates;
-    public IEnemyState NextState(int i)  => nextStates[i] as IEnemyState;
 
 
     private float timer = 0f;
@@ -16,15 +14,17 @@ public class ProjectileState : MonoBehaviour, IEnemyState
     public float timeToTravel;
     public string Label { get; } = "Projectile State"; // just for clarity in  editor
 
-    public void EnterState(EnemyController enemy)
+    public override void EnterState(EnemyController enemy)
     {
+        base.EnterState(enemy);
         this.enemy = enemy;
         Debug.Log("Entering Projectile State");
         timer = 0f;
     }
 
-    public void UpdateState()
+    public override void UpdateState()
     {
+        base.UpdateState();
         EnemyVariables variables = enemy.variables;
 
         if (timer == 0f)
@@ -45,9 +45,12 @@ public class ProjectileState : MonoBehaviour, IEnemyState
     }
 
 
-    public bool CheckEntryConditions(EnemyController enemy)
+    public override bool CheckEntryConditions(EnemyController enemy)
     {
         return areaOfAttackCollider.IsTouching(enemy.variables.player.GetComponent<Collider2D>());;
     }
-    public void ExitState() { UnityEngine.Debug.Log("Exiting Charging State"); }
+    public override void ExitState()
+    {
+        base.ExitState();
+    }
 }

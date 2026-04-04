@@ -1,10 +1,9 @@
 using UnityEngine;
 
-public class SmashState : MonoBehaviour, IEnemyState
+public class SmashState : EnemyStateBase
 {
     private EnemyController enemy;
-    public MonoBehaviour[] nextStates;
-    public IEnemyState NextState(int i)  => nextStates[i] as IEnemyState;
+
 
 
     public float smashTime = 1f;
@@ -12,16 +11,18 @@ public class SmashState : MonoBehaviour, IEnemyState
     public float smashPower = 20f;
     public string Label  = "Smash State"; // just for clarity in  editor
 
-    public void EnterState(EnemyController enemy)
+    public override void EnterState(EnemyController enemy)
     {
+        base.EnterState(enemy);
         this.enemy = enemy;
         enemy.FacePlayer();
         Debug.Log("Entering Smash State");
         timer = 0f;
     }
 
-    public void UpdateState()
+    public override void UpdateState()
     {
+        base.UpdateState();
         EnemyVariables variables = enemy.variables;
 
         if (timer == 0f)
@@ -44,9 +45,9 @@ public class SmashState : MonoBehaviour, IEnemyState
     }
 
 
-    public bool CheckEntryConditions(EnemyController enemy)
+    public override bool CheckEntryConditions(EnemyController enemy)
     {
         return true;
     }
-    public void ExitState() { UnityEngine.Debug.Log("Exiting Smash State"); }
+    public override void ExitState() { base.ExitState(); }
 }

@@ -1,11 +1,10 @@
 using UnityEngine;
 
-public class ShootState : MonoBehaviour, IEnemyState
+public class ShootState : EnemyStateBase
 {
     private EnemyController enemy;
     private string[] groundLayer = new string[]{"Ground"};
-    public MonoBehaviour[] nextStates;
-    public IEnemyState NextState(int i)  => nextStates[i] as IEnemyState;
+
 
 
     public float waitTime = 1f;
@@ -15,16 +14,18 @@ public class ShootState : MonoBehaviour, IEnemyState
 
     
     public GameObject projectile;
-    public void EnterState(EnemyController enemy)
+    public override void EnterState(EnemyController enemy)
     {
+        base.EnterState(enemy);
         this.enemy = enemy;
         enemy.FacePlayer();
         Debug.Log("Entering Jump State");
         timer = 0f;
     }
 
-    public void UpdateState()
+    public override  void UpdateState()
     {
+        base.UpdateState();
         EnemyVariables variables = enemy.variables;
 
         if (timer == 0f)
@@ -52,9 +53,9 @@ public class ShootState : MonoBehaviour, IEnemyState
     }
 
 
-    public bool CheckEntryConditions(EnemyController enemy)
+    public override bool CheckEntryConditions(EnemyController enemy)
     {
         return areaOfAttackCollider.IsTouching(enemy.variables.player.GetComponent<Collider2D>());;
     }
-    public void ExitState() { UnityEngine.Debug.Log("Exiting Charging State"); }
+    public override void ExitState() { base.ExitState(); }
 }

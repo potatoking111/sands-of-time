@@ -8,7 +8,7 @@ public class EnemyController : MonoBehaviour
     private List<MonoBehaviour> stateScripts; // assign in inspector
     public MonoBehaviour initialState;
 
-    private List<IEnemyState> states = new List<IEnemyState>();
+    private List<EnemyStateBase> states = new List<EnemyStateBase>();
     private int currentStateIndex = 0;
     public Action<float> TakeDamageAction {get;set;}    
 
@@ -20,15 +20,17 @@ public class EnemyController : MonoBehaviour
         stateScripts = new List<MonoBehaviour>(gameObject.GetComponents<MonoBehaviour>());
         foreach (var script in stateScripts)
         {
-            if (script is IEnemyState state)
-            {
+            if (script is EnemyStateBase state)
+            {   
+                Debug.Log("Adding state: " + state.stateLabel);
                 states.Add(state);
             }
         }
-        if (initialState is IEnemyState initState)
+        if (initialState is EnemyStateBase initState)
         {
             currentStateIndex = states.IndexOf(initState);
         }
+        Debug.Log("Entering initial state: " + states[currentStateIndex].stateLabel);
         states[currentStateIndex].EnterState(this);
         TakeDamageAction += TakeDamage;
 
@@ -48,7 +50,7 @@ public class EnemyController : MonoBehaviour
         currentStateIndex = newIndex;
         states[currentStateIndex].EnterState(this);
     }
-    public void SwitchState(IEnemyState newState)
+    public void SwitchState(EnemyStateBase newState)
     {
         int newIndex = states.IndexOf(newState);
         if (newIndex == -1) return;
