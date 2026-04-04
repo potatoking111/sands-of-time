@@ -33,7 +33,7 @@ public class PlayerInput : MonoBehaviour
 
 
                 // temp
-        inputActions.Player.Interact.performed += (context) => variables.timeManagerScript.FlipAction?.Invoke();
+        inputActions.Player.Interact.performed += (context) => variables.meterManagerScript.FlipAction?.Invoke();
         //
     }
 

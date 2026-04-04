@@ -7,6 +7,8 @@ public class LungeState : MonoBehaviour, IEnemyState
     public MonoBehaviour[] nextStates;
     public IEnemyState NextState(int i)  => nextStates[i] as IEnemyState;
     private float attackTimer;
+    public string Label { get; } = "Lunge State"; // just for clarity in  editor
+
 
     public GameObject attackObject;
     public float lungeAngle;

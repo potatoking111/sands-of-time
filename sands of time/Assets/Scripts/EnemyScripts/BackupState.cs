@@ -11,6 +11,8 @@ public class BackupState : MonoBehaviour, IEnemyState
     private float backupTimer;
     public float senseAngleOffset;
     public float senseDistance;
+    public string Label { get; } = "Backup State"; // just for clarity in  editor
+
     public void EnterState(EnemyController enemy)
     {
         this.enemy = enemy;

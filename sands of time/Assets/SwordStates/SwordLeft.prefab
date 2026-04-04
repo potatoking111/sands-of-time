@@ -158,4 +158,5 @@ MonoBehaviour:
   knockbackSpeed: 10
   knockbackAcceleration: 20
   knockbackDeceleration: 40
-  knockbackTimer: 0
+  knockbackTimer: 0.1
+  meterGainOnHit: 10

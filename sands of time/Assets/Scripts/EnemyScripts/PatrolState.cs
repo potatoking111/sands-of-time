@@ -9,6 +9,7 @@ public class PatrolState : MonoBehaviour, IEnemyState
     public MonoBehaviour[] nextStates;
     public IEnemyState NextState(int i)  => nextStates[i] as IEnemyState;
 
+    public string Label { get; } = "Patrol State"; // just for clarity in  editor
 
     public float senseAngleOffset;
     

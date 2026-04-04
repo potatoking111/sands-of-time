@@ -9,6 +9,8 @@ public class ChaseState : MonoBehaviour, IEnemyState
     public IEnemyState NextState(int i)  => nextStates[i] as IEnemyState;
 
     public float senseAngleOffset;
+    public string Label { get; } = "Chase State"; // just for clarity in  editor
+
     public void EnterState(EnemyController enemy)
     {
         this.enemy = enemy;

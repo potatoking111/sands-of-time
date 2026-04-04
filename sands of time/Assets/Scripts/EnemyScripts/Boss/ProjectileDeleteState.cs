@@ -10,6 +10,7 @@ public class ProjectileDeleteState : MonoBehaviour, IEnemyState
     public float timeToDelete = 0.5f;   
     public IEnemyState NextState(int i)  => nextStates[i] as IEnemyState;
 
+    public string Label { get; } = "Projectile Delete State"; // just for clarity in  editor
 
 
     public void EnterState(EnemyController enemy)

@@ -1,23 +1,24 @@
 using UnityEngine;
 
-public class SmashState : MonoBehaviour, IEnemyState
+public class DownedState : MonoBehaviour, IEnemyState
 {
     private EnemyController enemy;
     public MonoBehaviour[] nextStates;
     public IEnemyState NextState(int i)  => nextStates[i] as IEnemyState;
 
 
-    public float smashTime = 1f;
+    public float downedTime = 1f;
     private float timer = 0f;
-    public float smashPower = 20f;
-    public string Label  = "Smash State"; // just for clarity in  editor
-
+    public float damageTaken = 0;
+    public float damageThreshold = 10f;
+    public string Label = "Downed"; // just for clarity in  editor
     public void EnterState(EnemyController enemy)
     {
         this.enemy = enemy;
         enemy.FacePlayer();
-        Debug.Log("Entering Smash State");
+        Debug.Log("Entering Downed State");
         timer = 0f;
+        damageTaken = 0;
     }
 
     public void UpdateState()
@@ -28,14 +29,13 @@ public class SmashState : MonoBehaviour, IEnemyState
         {
             variables.rigidBody.linearVelocity = Vector2.zero;
 
-            variables.rigidBody.AddForce(Vector2.down * smashPower, ForceMode2D.Impulse);
         }
 
 
  
 
 
-        if (timer >= smashTime)
+        if (timer >= downedTime)
         {
             enemy.SwitchState(NextState(Random.Range(0, nextStates.Length)));
         }
@@ -46,7 +46,12 @@ public class SmashState : MonoBehaviour, IEnemyState
 
     public bool CheckEntryConditions(EnemyController enemy)
     {
-        return true;
+        if (damageTaken >= damageThreshold)
+        {
+            return true;
+        }
+        return false;
+
     }
-    public void ExitState() { UnityEngine.Debug.Log("Exiting Smash State"); }
+    public void ExitState() { UnityEngine.Debug.Log("Exiting Downed State"); }
 }

@@ -7,7 +7,7 @@ public interface IEnemyState
     void UpdateState();
     void ExitState();
     IEnemyState NextState (int index=0);
-
+    
     bool CheckEntryConditions(EnemyController enemy);
 }
 

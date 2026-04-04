@@ -11,6 +11,8 @@ public class ShootState : MonoBehaviour, IEnemyState
     public float waitTime = 1f;
     private float timer = 0f;
     public Collider2D areaOfAttackCollider;
+    public string Label = "Shoot State"; // just for clarity in  editor
+
     
     public GameObject projectile;
     public void EnterState(EnemyController enemy)

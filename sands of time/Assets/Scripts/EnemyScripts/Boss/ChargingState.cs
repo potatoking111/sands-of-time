@@ -12,13 +12,15 @@ public class ChargingState : MonoBehaviour, IEnemyState
     public float timesFlippedDirection = 0;
 
     public float chargeSpeed = 10f;
+    public string Label = "Charging State"; // just for clarity in  editor
+
     public void EnterState(EnemyController enemy)
     {
         this.enemy = enemy;
         timesFlippedDirection = 0;
         enemy.FacePlayer();
         Debug.Log("Entering Charging State");
-        enemy.variables.touchingSolidGround = true;
+        enemy.variables.touchingSolidGround = false;
     }
 
     public void UpdateState()

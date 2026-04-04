@@ -15,6 +15,7 @@ public class PlayerVariables : MonoBehaviour
     public float jumpStrength;
     public float atttackTimePeriod;
     public PlayerTimeManager timeManagerScript;
+    public PlayerMeterManager meterManagerScript;
 
     public Vector2 lastSolidGroundPosition;
     public Vector2 lastSolidGroundHangDirection;
@@ -31,6 +32,11 @@ public class PlayerVariables : MonoBehaviour
     public float dashCooldownTimer = 0f;
     public bool hasAirDash = true;
     public bool isDashing = false;
+
+    public float meterMaxAmount = 100f;
+    public float meterAmount = 0f;
+    public float meterFlipRequirement = 50f;
+
     //Dash variables end
 
     void Start()

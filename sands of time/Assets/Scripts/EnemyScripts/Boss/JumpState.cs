@@ -12,6 +12,8 @@ public class JumpState : MonoBehaviour, IEnemyState
     private float timer = 0f;
     public float jumpHeight = 10f;
     public Collider2D areaOfAttackCollider;
+    public string Label  = "Jump State"; // just for clarity in  editor
+
     public void EnterState(EnemyController enemy)
     {
         this.enemy = enemy;

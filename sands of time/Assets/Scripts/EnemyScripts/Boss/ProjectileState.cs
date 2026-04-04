@@ -14,6 +14,8 @@ public class ProjectileState : MonoBehaviour, IEnemyState
     public float distanceToTravel;
     public float peakHeight;
     public float timeToTravel;
+    public string Label { get; } = "Projectile State"; // just for clarity in  editor
+
     public void EnterState(EnemyController enemy)
     {
         this.enemy = enemy;

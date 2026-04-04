@@ -18,12 +18,17 @@ public class DefaultState : MonoBehaviour, IEnemyState
     public float attackCooldown = 2f;
     private float attackTimer = 0f;
 
+    public MonoBehaviour downedState; // assign in inspector
+    public MonoBehaviour enragedStartState; // assign in inspector
     public Dictionary<IEnemyState,float> stateWeights = new Dictionary<IEnemyState, float>();
+    public string Label= "Default State"; // just for clarity in  editor
+
+    
 
     public void EnterState(EnemyController enemy)
     {
         this.enemy = enemy;
-        Debug.Log("Entering Boss Default State");
+        Debug.Log("Entering Boss Default State" + Label);
         EnemyVariables variables = enemy.variables;
 
         int randomDirection = Random.Range(0, 2) * 2 - 1; // Randomly -1 or 1
@@ -40,8 +45,45 @@ public class DefaultState : MonoBehaviour, IEnemyState
             }
         }
         }
+        enemy.TakeDamageAction -= DownedEntry; // ensure not added multiple times might be wrong like order idk 
+        enemy.TakeDamageAction += DownedEntry;
+
+        enemy.TakeDamageAction -= EnragedEntry; // ensure not added multiple times might be wrong like order idk 
+        enemy.TakeDamageAction += EnragedEntry;
     }
 
+    private void DownedEntry(float damage)
+    {
+
+        if (downedState is DownedState downed)
+        {
+            downed.damageTaken += damage;   
+            if (downed.CheckEntryConditions(enemy))
+            {
+                enemy.SwitchState(downed);
+
+                enemy.TakeDamageAction -= DownedEntry; // ensure not added multiple times might be wrong like order idk 
+
+            }
+        }
+
+    }
+    private void EnragedEntry(float damage)
+    {
+
+        if (enragedStartState is DownedState enraged)
+        {
+            enraged.damageTaken += damage;   
+            if (enraged.CheckEntryConditions(enemy))
+            {
+                enemy.TakeDamageAction -= DownedEntry; // ensure not added multiple times might be wrong like order idk 
+                enemy.TakeDamageAction -= EnragedEntry; // ensure not added multiple times might be wrong like order idk 
+                enemy.SwitchState(enraged);
+
+            }
+        }
+
+    }
     public void UpdateState()
     {
         EnemyVariables variables = enemy.variables;

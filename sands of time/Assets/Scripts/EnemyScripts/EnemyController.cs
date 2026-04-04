@@ -5,14 +5,19 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     public EnemyVariables variables;
-    public List<MonoBehaviour> stateScripts; // assign in inspector
+    private List<MonoBehaviour> stateScripts; // assign in inspector
+    public MonoBehaviour initialState;
 
     private List<IEnemyState> states = new List<IEnemyState>();
     private int currentStateIndex = 0;
+    public Action<float> TakeDamageAction {get;set;}    
 
     void Start()
     {
         // Convert scripts to IEnemyState
+
+
+        stateScripts = new List<MonoBehaviour>(gameObject.GetComponents<MonoBehaviour>());
         foreach (var script in stateScripts)
         {
             if (script is IEnemyState state)
@@ -20,7 +25,12 @@ public class EnemyController : MonoBehaviour
                 states.Add(state);
             }
         }
-        states[0].EnterState(this);
+        if (initialState is IEnemyState initState)
+        {
+            currentStateIndex = states.IndexOf(initState);
+        }
+        states[currentStateIndex].EnterState(this);
+        TakeDamageAction += TakeDamage;
 
     }
 
@@ -202,7 +212,7 @@ public class EnemyController : MonoBehaviour
     rb.linearVelocity = new Vector2(vx, vy);
 }
 
-    public void TakeDamage(float damage)
+    private void TakeDamage(float damage)
     {
         variables.health -= damage;
         if (variables.health <= 0)
