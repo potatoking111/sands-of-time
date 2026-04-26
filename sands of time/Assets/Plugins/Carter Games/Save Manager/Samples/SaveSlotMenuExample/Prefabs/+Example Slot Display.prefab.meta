@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 9a26a120dc31b3045808592e9895aa38
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 176437
+  packageName: Save Manager | CG
+  packageVersion: 3.0.4
+  assetPath: Assets/Carter Games/Save Manager/Samples/SaveSlotMenuExample/Prefabs/+Example
+    Slot Display.prefab
+  uploadId: 895338

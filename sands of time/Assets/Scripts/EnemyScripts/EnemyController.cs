@@ -38,6 +38,10 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
+        if (!GameState.GameOn)
+        {
+            return;
+        }
         if (states.Count > 0)
             states[currentStateIndex].UpdateState();
     }
