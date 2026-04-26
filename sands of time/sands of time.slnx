@@ -1,3 +1,8 @@
 ﻿<Solution>
   <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="CarterGames.Shared.SaveManager.Editor.csproj" />
+  <Project Path="CarterGames.SaveManager.Editor.csproj" />
+  <Project Path="CarterGames.SaveManager.Runtime.csproj" />
+  <Project Path="CarterGames.SaveManager.Demo.csproj" />
+  <Project Path="CarterGames.Shared.SaveManager.csproj" />
 </Solution>

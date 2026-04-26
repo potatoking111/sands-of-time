@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 0f7a8f3c13f340afb70c26b1b5369865
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 176437
+  packageName: Save Manager | CG
+  packageVersion: 3.0.4
+  assetPath: Assets/Carter Games/Save Manager/Samples/SaveSlotMenuExample/Code/Runtime/ExampleSlotMenuManager.cs
+  uploadId: 895338

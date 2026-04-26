@@ -12,6 +12,7 @@ public class PlayerTimeManager : MonoBehaviour
     public Action<float, DamageType> TakeDamageAction {get;set;}
     private int timeDirection = 1; 
     private float initialTimeDisplaySize;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -57,6 +58,10 @@ public class PlayerTimeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!GameState.GameOn)
+        {
+            return;
+        }
         variables.timeHealth -= Time.deltaTime;
         if (variables.timeHealth <= 0)
         {
@@ -65,5 +70,11 @@ public class PlayerTimeManager : MonoBehaviour
         healthBar.transform.localScale = new Vector3(variables.timeHealth/variables.maxTimeHealth,1,1);
         float size = healthBar.GetComponent<RectTransform>().sizeDelta.x;
         healthBar.transform.localPosition = new Vector3(-timeDirection*(size-variables.timeHealth/variables.maxTimeHealth*size)/2,healthBar.transform.localPosition.y,healthBar.transform.localPosition.z);
+
+
+        if (variables.timeHealth <= 0)
+        {
+            variables.deathScript.OnDeath.Invoke();
+        }
     }
 }

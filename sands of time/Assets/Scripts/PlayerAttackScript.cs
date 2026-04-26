@@ -36,7 +36,7 @@ public class PlayerAttackScript : MonoBehaviour
         GameObject swordPrefab = swordsKey[variables.playerFacing];
         BoxCollider2D swordBox = swordPrefab.GetComponent<BoxCollider2D>();
         Vector3 offset = new Vector3(variables.playerFacing.x*variables.hitbox.size.x/2,variables.playerFacing.y*variables.hitbox.size.y/2,0);
-        Vector3 swordSizeOffset = new Vector3(swordBox.size.x/2,swordBox.size.y/2,0) * variables.playerFacing;
+        Vector3 swordSizeOffset = new Vector3(swordBox.size.x,swordBox.size.y,0) * variables.playerFacing;
         GameObject attackObject = Instantiate(swordsKey[variables.playerFacing],variables.rigidBody.transform.position+offset+swordSizeOffset,variables.rigidBody.transform.rotation,variables.rigidBody.transform);
         attackObject.GetComponent<SwordDamageScript>().variables = variables;
         Destroy(attackObject,variables.atttackTimePeriod);

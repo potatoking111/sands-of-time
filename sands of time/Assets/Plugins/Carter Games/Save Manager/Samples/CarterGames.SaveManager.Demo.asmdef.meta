@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 781de0e236e5d6743a1e1820ce72d73a
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 176437
+  packageName: Save Manager | CG
+  packageVersion: 3.0.4
+  assetPath: Assets/Carter Games/Save Manager/Samples/CarterGames.SaveManager.Demo.asmdef
+  uploadId: 895338

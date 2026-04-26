@@ -1,10 +1,13 @@
 using System;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 public class PlayerMovement : MonoBehaviour
 {
     public  Action<Vector2,float,float,float> MoveAction {get;set;}
     public  Action JumpAction {get;set;}
+    public List<Func<bool>> JumpPossibleRequirements = new List<Func<bool>>();
     private string[] defaultLayerNames = new string[]{"Ground"};
     private PlayerVariables variables;
 
@@ -13,14 +16,14 @@ public class PlayerMovement : MonoBehaviour
     private float dashDirection = 1f;
     private float normalGravityScale;
 
-
+    public Action TouchGroundAction {get;set;}
     
     void Start()
     {
         variables = gameObject.GetComponent<PlayerVariables>();
         GoToLastGroundPositionAction += GoToLastGroundPosition;
         normalGravityScale = variables.rigidBody.gravityScale;
-
+        JumpPossibleRequirements.Add(()=>variables.isOnGround);
     }
     void GoToLastGroundPosition()
     {
@@ -51,6 +54,10 @@ public class PlayerMovement : MonoBehaviour
         Vector2 hangDirection = GetDirectionOfSideHanging(LayerMask.GetMask(defaultLayerNames),variables.footRaycastDistance);
         if (hangDirection != Vector2.zero)
         {
+            if (variables.isOnGround == false) // if is switching from false to true
+            {
+                TouchGroundAction?.Invoke();
+            }
             variables.isOnGround = true;
             variables.lastSolidGroundPosition = variables.rigidBody.position;
             variables.lastSolidGroundHangDirection = hangDirection;
@@ -102,16 +109,25 @@ public class PlayerMovement : MonoBehaviour
     }
 
     Vector2 newVelocity = new Vector2(Mathf.MoveTowards(current.x, target.x, rate * speedOverride * Time.fixedDeltaTime), Mathf.MoveTowards(current.y, target.y, rate * speedOverride * Time.fixedDeltaTime));
-    if (dirVector.y == 0)
-        {
-            newVelocity.y = current.y;
-        }
+    // if (dirVector.y == 0)
+    //     {
+    //         newVelocity.y = current.y;
+    //     }
     variables.rigidBody.linearVelocity = newVelocity;
 }
     public void Jump()
     {
+        bool canJump = false;
+
+        foreach (Func<bool> req in JumpPossibleRequirements)
+        {
+            if (req())
+            {
+                canJump = true;
+            }
+        }
         
-        if (variables.isOnGround)
+        if (canJump)
         {
             variables.rigidBody.AddForce(Vector2.up*variables.jumpStrength,ForceMode2D.Impulse);
 
@@ -138,8 +154,11 @@ public class PlayerMovement : MonoBehaviour
     public GameObject GetObjectUnder(LayerMask layer, float rayLength = 1f)
     {
         BoxCollider2D box = variables.hitbox;
-        Vector2 leftPos = new Vector2(box.transform.position.x-box.size.x/2,box.transform.position.y-box.size.y/2);
-        Vector2 rightPos = new Vector2(box.transform.position.x+box.size.x/2,box.transform.position.y-box.size.y/2);
+
+        Bounds bounds = box.bounds;
+
+        Vector2 leftPos = new Vector2(bounds.min.x, bounds.min.y);
+        Vector2 rightPos = new Vector2(bounds.max.x, bounds.min.y);
 
         RaycastHit2D hitLeft = Physics2D.Raycast(leftPos, Vector2.down, rayLength, layer);
         RaycastHit2D hitRight = Physics2D.Raycast(rightPos, Vector2.down, rayLength, layer);
