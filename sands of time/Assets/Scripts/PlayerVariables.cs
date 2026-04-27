@@ -46,6 +46,7 @@ public class PlayerVariables : MonoBehaviour
     public float meterFlipRequirement = 50f;
     public DeathScript deathScript;
     public PlayerInventoryScript playerInventoryScript;
+    public float invincibilityTime = 50f;
 
     //Dash variables end
 

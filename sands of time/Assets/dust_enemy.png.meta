@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 9a9c8c3a7650ac74b96617393cf79b4b
+guid: c0b8ded5e4704484d84f36dd51e7fae9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2555367647144294544
-    second: pixil-frame-0 (13)_0
+      213: 4631130865604566517
+    second: dust_enemy_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,12 +46,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 4
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pixil-frame-0 (13)_0
+      name: dust_enemy_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 31
-        height: 32
+        width: 1000
+        height: 1000
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 098bf8e065d767320800000000000000
-      internalID: 2555367647144294544
+      spriteID: 5fd15b84cf4154040800000000000000
+      internalID: 4631130865604566517
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      pixil-frame-0 (13)_0: 2555367647144294544
+      dust_enemy_0: 4631130865604566517
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyContactDamage : MonoBehaviour
@@ -15,32 +16,41 @@ public class EnemyContactDamage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+    }
+    public void DamageCheck(Collider2D other)
+    {
+        Debug.Log("Something entered trigger: " + other.name);
+        if (other.gameObject.CompareTag("PlayerHitbox") && lastDamageTime + variables.enemyDamageCooldown < Time.time)
+        {
+            Debug.Log("Player entered trigger");
+            PlayerVariables playerVariables = other.gameObject.GetComponentInParent<PlayerVariables>();
+            if (playerVariables != null)
+            {
+                Debug.Log("Player variables found, applying damage");
+                float damage = variables.enemyContactDamageAmount;
+                if (variables.isCharging)
+                {
+                    damage += variables.chargeExtraDamage;
+                }
+                playerVariables.timeManagerScript.TakeDamageAction?.Invoke(damage,DamageType.Enemy);
+                lastDamageTime = Time.time;
+
+            }
+            else
+            {
+                Debug.Log("Player variables not found on the player object");
+            }
+        }
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-    Debug.Log("Something entered trigger: " + other.name);
-    if (other.gameObject.CompareTag("PlayerHitbox") && lastDamageTime + variables.enemyDamageCooldown < Time.time)
-    {
-        Debug.Log("Player entered trigger");
-        PlayerVariables playerVariables = other.gameObject.GetComponentInParent<PlayerVariables>();
-        if (playerVariables != null)
-        {
-            Debug.Log("Player variables found, applying damage");
-            float damage = variables.enemyContactDamageAmount;
-            if (variables.isCharging)
-            {
-                damage += variables.chargeExtraDamage;
-            }
-            playerVariables.timeManagerScript.TakeDamageAction?.Invoke(damage,DamageType.Enemy);
-            lastDamageTime = Time.time;
+        DamageCheck(other);
 
-        }
-        else
-        {
-            Debug.Log("Player variables not found on the player object");
-        }
-    }
 }
+    void OnTriggerStay2D(Collider2D other)
+    {
+        Debug.Log("trigger stay");
+        DamageCheck(other);
+    }
 
 }
