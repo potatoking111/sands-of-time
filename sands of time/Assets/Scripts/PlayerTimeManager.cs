@@ -12,6 +12,10 @@ public class PlayerTimeManager : MonoBehaviour
     public Action<float, DamageType> TakeDamageAction {get;set;}
     private int timeDirection = 1; 
     private float initialTimeDisplaySize;
+
+    public float timeSinceLastDamage;
+
+
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -30,8 +34,17 @@ public class PlayerTimeManager : MonoBehaviour
     }   
     public void TakeDamage(float damageAmount, DamageType damageType=DamageType.None)
     {
+        Debug.Log("try dmg");
+
+        if (timeSinceLastDamage + variables.invincibilityTime < Time.time)
+        {
+            Debug.Log("invince frame");
+            return;
+        }
+        timeSinceLastDamage = Time.time;
         variables.maxTimeHealth -= damageAmount;
         variables.timeHealth -= damageAmount;
+        
         if (variables.maxTimeHealth < 0)
         {
             variables.maxTimeHealth = 0;
