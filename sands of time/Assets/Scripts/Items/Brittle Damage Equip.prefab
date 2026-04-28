@@ -14,8 +14,10 @@ GameObject:
   - component: {fileID: 5480274850663453275}
   - component: {fileID: 402821802538495366}
   - component: {fileID: -899279001397943410}
+  - component: {fileID: 1069892992389880464}
+  - component: {fileID: 3529519062169429845}
   m_Layer: 0
-  m_Name: TestItem2
+  m_Name: Brittle Damage Equip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -89,7 +91,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a0d63b1244656b44dbd6a37436bcb81b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -143,7 +145,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a0d63b1244656b44dbd6a37436bcb81b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -197,3 +199,45 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1069892992389880464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4538954113625739982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94b0adf01727dc84099c1d48905d68f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EquipmentScript
+  EquipEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3529519062169429845}
+        m_TargetAssemblyTypeName: BrittleDamageScript, Assembly-CSharp
+        m_MethodName: EnableBrittleDamage
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1069892992389880464}
+          m_ObjectArgumentAssemblyTypeName: EquipmentScript, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  playerVariables: {fileID: 0}
+--- !u!114 &3529519062169429845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4538954113625739982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 000ab79e006a8ba4a901f79b22f9d3e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrittleDamageScript
+  extraDamageTaken: 30
+  extraDamageDone: 10

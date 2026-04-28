@@ -2,5 +2,5 @@ using Unity.VisualScripting;
 using UnityEngine;
 public enum DamageType
 {
-    Enemy,Spike,None
+    Enemy,Spike,None,Equipment
 }

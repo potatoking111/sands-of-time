@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class SwordDamageScript : MonoBehaviour
@@ -13,9 +14,23 @@ public class SwordDamageScript : MonoBehaviour
     public float knockbackTimer;
     public float meterGainOnHit = 10f;
     private Vector2 initialFacing;
+    public Action DealDamageAction;
+
+    public EnemyController hitEnemy;
     void Start()
     {
         this.gameObject.SetActive(true);
+        DealDamageAction += DealDamage;
+    }
+    public void DealDamage()
+    {
+        hitEnemy.TakeDamageAction?.Invoke(damage);
+                    variables.meterManagerScript.AddMeter(meterGainOnHit);
+                    doneDamage = true;
+                    Vector2 facing = variables.playerFacing;
+                    variables.playerMovementScript.MoveAction?.Invoke(-facing,knockbackSpeed,knockbackAcceleration,knockbackDeceleration);
+                    knockbackTimer = knockbackDuration;
+                    initialFacing = variables.playerFacing;
     }
 
     // Update is called once per frame
@@ -39,15 +54,10 @@ public class SwordDamageScript : MonoBehaviour
             if (collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
                 EnemyController health = collider.gameObject.GetComponent<EnemyController>();
+                hitEnemy = health;
                 if (health != null)
                 {
-                    health.TakeDamageAction?.Invoke(damage);
-                    variables.meterManagerScript.AddMeter(meterGainOnHit);
-                    doneDamage = true;
-                    Vector2 facing = variables.playerFacing;
-                    variables.playerMovementScript.MoveAction?.Invoke(-facing,knockbackSpeed,knockbackAcceleration,knockbackDeceleration);
-                    knockbackTimer = knockbackDuration;
-                    initialFacing = variables.playerFacing;
+                    DealDamageAction.Invoke();
                     break;
                 }
             }
