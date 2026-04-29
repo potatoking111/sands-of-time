@@ -2848,6 +2848,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3694331500311108321, guid: fb5572faf226bc04ca30b8ea359ccfeb, type: 3}
+      propertyPath: doPlayerFlip
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3922305320487665779, guid: fb5572faf226bc04ca30b8ea359ccfeb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3029,6 +3033,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3350442296336211643, guid: fb5572faf226bc04ca30b8ea359ccfeb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1155159616}
+    - targetCorrespondingSourceObject: {fileID: 3350442296336211643, guid: fb5572faf226bc04ca30b8ea359ccfeb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1155159619}
+    - targetCorrespondingSourceObject: {fileID: 3350442296336211643, guid: fb5572faf226bc04ca30b8ea359ccfeb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1155159620}
   m_SourcePrefab: {fileID: 100100000, guid: fb5572faf226bc04ca30b8ea359ccfeb, type: 3}
 --- !u!1 &1155159612 stripped
 GameObject:
@@ -3078,6 +3088,42 @@ MonoBehaviour:
   itemPrefabs:
   - {fileID: 861660440231226809, guid: 81c5ca12da5c4794c8c18b5019566710, type: 3}
   - {fileID: 4538954113625739982, guid: 07f61e947ac04fa44851663e3f56ce3a, type: 3}
+--- !u!95 &1155159619
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155159615}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0d6f96e15bfc9aa49a048811e0cd16e6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1155159620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155159615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 801a77143c5daa04195707d32100b6c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OverworldAnimatorUpdater
+  variables: {fileID: 1155159613}
+  animator: {fileID: 1155159619}
 --- !u!1 &1253592796
 GameObject:
   m_ObjectHideFlags: 0

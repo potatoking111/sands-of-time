@@ -6,12 +6,13 @@ public class PlayerVariables : MonoBehaviour
     public float accelertion;
     public float decelertion;
     public float airControlFactor; // how much control the player has over their movement while in the air, 0 means no control, 1 means full control
-    private Vector2 _facing;
+    public Vector2 _facing;
     public Vector2 playerFacing
     {
         get { return _facing; }
-        set { _facing = value; if (value.x == 0){return;} this.spriteRenderer.flipX = value.x > 0; }
+        set { _facing = value; if (value.x == 0 || !doPlayerFlip){return;} this.spriteRenderer.flipX = value.x > 0; }
     }
+    public bool doPlayerFlip = true;
     public Rigidbody2D rigidBody;
     public PlayerMovement playerMovementScript;
     public float money = 0;
