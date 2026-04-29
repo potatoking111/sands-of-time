@@ -51,7 +51,7 @@ public class SwordDamageScript : MonoBehaviour
         Collider2D[] hitColliders = Physics2D.OverlapBoxAll(transform.position, GetComponent<BoxCollider2D>().size, 0);
         foreach (Collider2D collider in hitColliders)
         {
-            if (collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            if (collider.gameObject.layer == LayerMask.NameToLayer("Enemy") || collider.gameObject.CompareTag("Damagable"))
             {
                 EnemyController health = collider.gameObject.GetComponent<EnemyController>();
                 hitEnemy = health;
