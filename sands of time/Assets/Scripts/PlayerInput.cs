@@ -93,7 +93,8 @@ private void MoveFacingDeSetup()
     {
         Debug.Log("gameState" + GameState.GameOn);
         moveInput.y = 0;
-        variables.playerMovementScript.MoveAction?.Invoke(moveInput,-1,-1,-1);
+        variables.playerMovementScript.MoveAction?.Invoke(moveInput,-1,-1,-1,true);
+
     }
     private void OnMoveEditFace(Vector2 dir)
     {
