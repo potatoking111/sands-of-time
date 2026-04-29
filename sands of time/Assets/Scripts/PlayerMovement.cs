@@ -131,6 +131,7 @@ public class PlayerMovement : MonoBehaviour
         
         if (canJump)
         {
+            variables.rigidBody.linearVelocity = new Vector2(variables.rigidBody.linearVelocity.x, 0);
             variables.rigidBody.AddForce(Vector2.up*variables.jumpStrength,ForceMode2D.Impulse);
 
         }
