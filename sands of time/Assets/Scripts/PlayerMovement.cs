@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 public class PlayerMovement : MonoBehaviour
 {
-    public  Action<Vector2,float,float,float> MoveAction {get;set;}
+    public  Action<Vector2,float,float,float,bool> MoveAction {get;set;}
     public  Action JumpAction {get;set;}
     public List<Func<bool>> JumpPossibleRequirements = new List<Func<bool>>();
     private string[] defaultLayerNames = new string[]{"Ground"};
@@ -17,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     private float normalGravityScale;
 
     public Action TouchGroundAction {get;set;}
+    
     
     void Start()
     {
@@ -80,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
 
         }
     }
-    public void Move(Vector2 dirVector,float speedOverride = -1,float accelOverride = -1,float decelOverride = -1)
+    public void Move(Vector2 dirVector,float speedOverride = -1,float accelOverride = -1,float decelOverride = -1, bool ignoreTargetY = false)
     {
     if (accelOverride == -1) accelOverride = variables.accelertion;
     if (speedOverride == -1) speedOverride = variables.movementSpeed;
@@ -106,7 +106,10 @@ public class PlayerMovement : MonoBehaviour
         else
             rate = decelOverride * variables.airControlFactor;
     }
-
+    if (ignoreTargetY)
+        {
+            target.y = variables.rigidBody.linearVelocity.y;
+        }
     Vector2 newVelocity = new Vector2(Mathf.MoveTowards(current.x, target.x, rate * speedOverride * Time.fixedDeltaTime), Mathf.MoveTowards(current.y, target.y, rate * speedOverride * Time.fixedDeltaTime));
     // if (dirVector.y == 0)
     //     {

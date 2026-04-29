@@ -52,7 +52,7 @@ public class OverworldPlayer : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        this.playerMovementScript.MoveAction?.Invoke(moveInput,-1,-1,-1);
+        this.playerMovementScript.MoveAction?.Invoke(moveInput,-1,-1,-1, false);
     }
     private void OnMoveEditFace(Vector2 dir)
     {
