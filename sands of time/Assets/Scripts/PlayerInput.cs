@@ -91,7 +91,6 @@ private void MoveFacingDeSetup()
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log("gameState" + GameState.GameOn);
         moveInput.y = 0;
         variables.playerMovementScript.MoveAction?.Invoke(moveInput,-1,-1,-1,true);
 

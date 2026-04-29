@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyController : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class EnemyController : MonoBehaviour
     private List<EnemyStateBase> states = new List<EnemyStateBase>();
     private int currentStateIndex = 0;
     public Action<float> TakeDamageAction {get;set;}    
+
+    public UnityEvent EnemyDeathEvent;
 
     void Start()
     {
@@ -29,9 +32,10 @@ public class EnemyController : MonoBehaviour
         if (initialState is EnemyStateBase initState)
         {
             currentStateIndex = states.IndexOf(initState);
+            states[currentStateIndex].EnterState(this);
+
         }
-        Debug.Log("Entering initial state: " + states[currentStateIndex].stateLabel);
-        states[currentStateIndex].EnterState(this);
+        // Debug.Log("Entering initial state: " + states[currentStateIndex].stateLabel);
         TakeDamageAction += TakeDamage;
 
     }
@@ -215,6 +219,7 @@ public class EnemyController : MonoBehaviour
         variables.health -= damage;
         if (variables.health <= 0)
         {
+            EnemyDeathEvent.Invoke();
             Destroy(gameObject);
         }
     }

@@ -6,7 +6,7 @@ public class EnemyVariables : MonoBehaviour
     public BoxCollider2D hitbox;
     public float senseRadius;
     public float senseAngleOffset;
-    private Vector2 _facing;
+    public Vector2 _facing;
     public Vector2 facing
     {
         get { return _facing; }

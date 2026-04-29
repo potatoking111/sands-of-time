@@ -85,7 +85,6 @@ public class PlayerMovement : MonoBehaviour
     if (accelOverride == -1) accelOverride = variables.accelertion;
     if (speedOverride == -1) speedOverride = variables.movementSpeed;
     if (decelOverride == -1) decelOverride = variables.decelertion;
-
     if (variables.isDashing) return;
 
     Vector2 target = new Vector2(dirVector.x * speedOverride, dirVector.y * speedOverride);

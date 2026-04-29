@@ -23,7 +23,12 @@ public class OverworldAnimatorUpdater : MonoBehaviour
         animator.SetInteger("facingX", Mathf.RoundToInt(variables.playerFacing.x));
         animator.SetInteger("facingY", -Mathf.RoundToInt(variables.playerFacing.y));
         animator.SetBool("changedFace",prevFacing != variables.playerFacing);
+        if (prevFacing != variables.playerFacing)
+        {
+            Debug.Log("changed");
+        }
         prevFacing = variables.playerFacing;
+
 
     }
 }
