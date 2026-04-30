@@ -33,4 +33,9 @@ public class LevelCompleteScript : MonoBehaviour
     {
         AreaManagerScript.LoadAreaGlobal(overworld);
     }
+
+    public void SetLevelDone()
+    {
+        overworldVariables.levelTwoUnlocked = true;
+    }
 }

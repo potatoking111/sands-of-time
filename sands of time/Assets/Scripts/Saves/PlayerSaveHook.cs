@@ -99,7 +99,7 @@ public class PlayerSaveHook : MonoBehaviour
 
         save.GetValue<Vector3>("player_position").Value = transform.position;
         save.GetValue<float>("player_money").Value = playerVariables.money;
-
+        save.GetValue<bool>("level_one_done").Value = playerVariables.levelTwoUnlocked;
         SaveInventory();
         SaveEquipment();
     }
@@ -110,7 +110,7 @@ public class PlayerSaveHook : MonoBehaviour
 
         transform.position = save.GetValue<Vector3>("player_position").Value;
         playerVariables.money = save.GetValue<float>("player_money").Value;
-
+        playerVariables.levelTwoUnlocked = save.GetValue<bool>("level_one_done").Value;
         LoadInventory();
         LoadEquipment();
 

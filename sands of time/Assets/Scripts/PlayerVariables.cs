@@ -50,7 +50,7 @@ public class PlayerVariables : MonoBehaviour
     public float invincibilityTime = 50f;
 
     public GameObject area;
-
+    public bool levelTwoUnlocked = false;
     //Dash variables end
 
     void Start()
