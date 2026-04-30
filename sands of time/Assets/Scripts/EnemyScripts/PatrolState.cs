@@ -29,7 +29,7 @@ public class PatrolState : EnemyStateBase
         variables.isCharging = false;
 
 
-        if (enemy.CheckIfAirUnder(LayerMask.GetMask(groundLayer)) && variables.touchingSolidGround)
+        if ((enemy.CheckIfAirUnder(LayerMask.GetMask(groundLayer)) && variables.touchingSolidGround) || enemy.CheckIfInFront(LayerMask.GetMask(groundLayer)))
         {
             variables.facing = new Vector2(-variables.facing.x, variables.facing.y);
             variables.touchingSolidGround = false;

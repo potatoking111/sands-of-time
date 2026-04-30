@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -34,7 +36,7 @@ public class PlayerInventoryScript : MonoBehaviour
     public float lastClickTime = 0;
     public float doubleClickDelay = 100;
 
-    
+    public Action<GameObject> AddItemAction;
 
     public void ItemSelectEvent(GameObject clicked)
 {
@@ -92,6 +94,8 @@ public class PlayerInventoryScript : MonoBehaviour
             xCellSize = size.rect.width;
   
         }
+
+        AddItemAction += (item) => {if (item.GetComponent<ItemScript>() is ItemScript itemScript ){itemScript.original=item; inventory.Add(item);}};
     }
 
     // Update is called once per frame
