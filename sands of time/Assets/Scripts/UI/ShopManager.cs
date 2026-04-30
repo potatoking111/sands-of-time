@@ -9,6 +9,11 @@ public class ShopManager : MonoBehaviour
     public bool canBuy = true;
 
     public Action OnBuyAction;
+    public List<int> stock;
+
+    public List<GameObject> items;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -27,15 +32,41 @@ public class ShopManager : MonoBehaviour
     }
     public void CheckEnoughMoney(float cost)
     {
+        Debug.Log("player has money + to "+ playerVariables.money);
         if (playerVariables.money >= cost)
         {
+            
             OnBuyAction += () => playerVariables.money -= cost;
             return;
         }
         else
         {
+            Debug.Log("NOT ENOUGH MONEY");
             canBuy = false;
         }
+    }
+    public void CheckIfInStock(GameObject item)
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (item == items[i])
+            {
+                if (stock[i] > 0)
+                {
+                    OnBuyAction += () => stock[i] -= 1;
+                    return;
+                }
+                else
+                {
+                    Debug.Log("NOT ENOUGH STOCK");
+                    canBuy = false; 
+                    return;
+                }
+
+
+            }
+        }
+
     }
     public void Buy(GameObject boughtObject)
     {

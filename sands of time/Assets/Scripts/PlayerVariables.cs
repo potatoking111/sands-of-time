@@ -49,6 +49,8 @@ public class PlayerVariables : MonoBehaviour
     public PlayerInventoryScript playerInventoryScript;
     public float invincibilityTime = 50f;
 
+    public GameObject area;
+
     //Dash variables end
 
     void Start()

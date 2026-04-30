@@ -6,7 +6,7 @@ public class LevelEntryScript : MonoBehaviour
     public PlayerVariables playerVariables;
 
     public PlayerVariables overworldPlayer;
-    
+    public LevelCompleteScript levelCompleteScript;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -33,7 +33,8 @@ public class LevelEntryScript : MonoBehaviour
             equipScript.playerVariables = playerVariables;
             equipScript.EquipEvent?.Invoke();
         }
-
+        levelCompleteScript.overworldVariables = overworldPlayer;
+        levelCompleteScript.overworld = playerVariables.area;
         GiveUp giveUp = FindAnyObjectByType<GiveUp>(FindObjectsInactive.Include);
         GoToTitle titleScreen = FindAnyObjectByType<GoToTitle>(FindObjectsInactive.Include);
         giveUp.gameObject.SetActive(true);
@@ -47,6 +48,7 @@ public class LevelEntryScript : MonoBehaviour
             titleScreen.gameObject.SetActive(true);
             giveUp.gameObject.SetActive(false);
         };
-
+        
+    
     }
 }
