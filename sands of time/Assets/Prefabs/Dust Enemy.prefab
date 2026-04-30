@@ -217,8 +217,8 @@ MonoBehaviour:
   senseRadius: 10
   senseAngleOffset: 45
   _facing: {x: 1, y: 0}
-  walkSpeed: 5
-  runSpeed: 5
+  walkSpeed: 15
+  runSpeed: 25
   isCharging: 0
   chargeExtraDamage: 0
   enemyDamageCooldown: 1

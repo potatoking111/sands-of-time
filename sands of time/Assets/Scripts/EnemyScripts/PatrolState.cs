@@ -22,7 +22,6 @@ public class PatrolState : EnemyStateBase
 
     public override void UpdateState()
     {
-        Debug.Log("tryna patrol");
         base.UpdateState();
         EnemyVariables variables = enemy.variables;
         float targetSpeed = variables.walkSpeed;

@@ -28,7 +28,7 @@ public class SwordDamageScript : MonoBehaviour
                     variables.meterManagerScript.AddMeter(meterGainOnHit);
                     doneDamage = true;
                     Vector2 facing = variables.playerFacing;
-                    variables.playerMovementScript.MoveAction?.Invoke(-facing,knockbackSpeed,knockbackAcceleration,knockbackDeceleration,true);
+                    variables.playerMovementScript.MoveAction?.Invoke(-facing,knockbackSpeed,knockbackAcceleration,knockbackDeceleration,false);
                     knockbackTimer = knockbackDuration;
                     initialFacing = variables.playerFacing;
     }
@@ -41,7 +41,7 @@ public class SwordDamageScript : MonoBehaviour
             knockbackTimer -= Time.deltaTime;
                            
 
-            variables.playerMovementScript.MoveAction?.Invoke(-initialFacing,knockbackSpeed,knockbackAcceleration,knockbackDeceleration, true);
+            variables.playerMovementScript.MoveAction?.Invoke(-initialFacing,knockbackSpeed,knockbackAcceleration,knockbackDeceleration, false);
             
         }
         if (doneDamage)

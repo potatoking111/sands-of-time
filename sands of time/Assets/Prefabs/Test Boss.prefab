@@ -177,7 +177,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4, y: 4}
+    oldSize: {x: 32, y: 32}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -263,7 +263,7 @@ MonoBehaviour:
   stateLabel: 
   areaOfAttackCollider: {fileID: 0}
   timesFlippedDirection: 0
-  chargeSpeed: 10
+  chargeSpeed: 40
 --- !u!114 &3088578724656124108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,7 +300,7 @@ MonoBehaviour:
   - {fileID: 3088578724656124108}
   stateLabel: 
   timeToJumpApex: 0.6
-  jumpHeight: 8
+  jumpHeight: 45
   areaOfAttackCollider: {fileID: 0}
   Label: Jump State
 --- !u!114 &8439671274336600471
@@ -321,7 +321,7 @@ MonoBehaviour:
   - {fileID: 8891662095189094874}
   - {fileID: 3406212744438139749}
   stateLabel: 
-  walkSpeed: 4
+  walkSpeed: 20
   senseAngleOffset: 0
   attackCooldown: 2
   downedState: {fileID: 578544888864287685}
@@ -363,7 +363,7 @@ MonoBehaviour:
   - {fileID: 5046708914462896247}
   - {fileID: 514365352162485228}
   stateLabel: 
-  walkSpeed: 4
+  walkSpeed: 20
   senseAngleOffset: 0
   attackCooldown: 1
   downedState: {fileID: 6624977928537874718}
@@ -406,7 +406,7 @@ MonoBehaviour:
   stateLabel: 
   areaOfAttackCollider: {fileID: 0}
   timesFlippedDirection: 0
-  chargeSpeed: 15
+  chargeSpeed: 45
 --- !u!114 &514365352162485228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,7 +424,7 @@ MonoBehaviour:
   - {fileID: 1856049842165552623}
   stateLabel: 
   timeToJumpApex: 0.4
-  jumpHeight: 8
+  jumpHeight: 40
   areaOfAttackCollider: {fileID: 0}
   Label: enraged jump 1
 --- !u!114 &8205420306780929224
@@ -445,7 +445,7 @@ MonoBehaviour:
   stateLabel: 
   areaOfAttackCollider: {fileID: 0}
   timesFlippedDirection: 0
-  chargeSpeed: 17.5
+  chargeSpeed: 50
 --- !u!114 &1856049842165552623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -482,7 +482,7 @@ MonoBehaviour:
   - {fileID: 947514864593907422}
   stateLabel: 
   timeToJumpApex: 0.4
-  jumpHeight: 8
+  jumpHeight: 45
   areaOfAttackCollider: {fileID: 0}
   Label: enraged jump 2
 --- !u!114 &947514864593907422

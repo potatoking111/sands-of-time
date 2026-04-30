@@ -12,6 +12,8 @@ namespace Save
 
         [SerializeField] private SaveValue<float> money =
             new SaveValue<float>("player_money");
+                [SerializeField] private SaveValue<bool> levelOneDone =
+            new SaveValue<bool>("level_one_done");
 
         public SaveValue<List<string>> inventory_items =
             new SaveValue<List<string>>("inventory_items", new List<string>());
