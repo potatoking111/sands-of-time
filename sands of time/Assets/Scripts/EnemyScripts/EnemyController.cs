@@ -118,6 +118,8 @@ public class EnemyController : MonoBehaviour
     }
 
 
+
+
         public bool CheckIfAirUnder(LayerMask layer, float rayLength = 1f)
     {
         BoxCollider2D box = variables.hitbox;
@@ -139,6 +141,30 @@ public class EnemyController : MonoBehaviour
             
         }
         variables.touchingSolidGround = true;
+        return false;
+    }
+
+    public bool CheckIfInFront(LayerMask layer, float rayLength = -1f)
+    {
+
+        BoxCollider2D box = variables.hitbox;
+
+        Bounds bounds = box.bounds;
+        if (rayLength < 0)
+        {
+            rayLength = box.size.x / 2;
+        }
+        Vector2 midPos = new Vector2(bounds.max.x, bounds.max.y-(bounds.size.y/2));
+        RaycastHit2D hit = Physics2D.Raycast(midPos, Vector2.right*variables.facing, rayLength, layer);
+        Debug.DrawRay(midPos, Vector2.right * rayLength, Color.red);
+
+        
+        if (hit.collider)
+        {
+                return true;
+
+            
+        }
         return false;
     }
 

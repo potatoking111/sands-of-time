@@ -15926,7 +15926,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 49.63704, y: 2.1385002}
+  m_Offset: {x: 42.796898, y: 2.1385002}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -15936,7 +15936,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 133.74548, y: 8.332331}
+  m_Size: {x: 147.42577, y: 8.332331}
   m_EdgeRadius: 0
 --- !u!1 &5108464843398954687
 GameObject:
@@ -26203,10 +26203,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7922132102663730562, guid: 0fabc8ae6c0e16b46bcd8909b5ccd2dc, type: 3}
-      propertyPath: EnemyDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 316456549716730194}
-    - target: {fileID: 7922132102663730562, guid: 0fabc8ae6c0e16b46bcd8909b5ccd2dc, type: 3}
       propertyPath: EnemyDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -26227,36 +26223,13 @@ PrefabInstance:
     - {fileID: 136667888884701127, guid: 0fabc8ae6c0e16b46bcd8909b5ccd2dc, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4131728263512277656, guid: 0fabc8ae6c0e16b46bcd8909b5ccd2dc, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 316456549716730194}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fabc8ae6c0e16b46bcd8909b5ccd2dc, type: 3}
 --- !u!4 &953533301999369783 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3291204842960989113, guid: 0fabc8ae6c0e16b46bcd8909b5ccd2dc, type: 3}
   m_PrefabInstance: {fileID: 2348367864954705294}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1855989747248666390 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4131728263512277656, guid: 0fabc8ae6c0e16b46bcd8909b5ccd2dc, type: 3}
-  m_PrefabInstance: {fileID: 2348367864954705294}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &316456549716730194
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1855989747248666390}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d8f273ab952bda4f95b1886e8a1d5d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DestroyObject
-  objs:
-  - {fileID: 2762153980339930475}
-  - {fileID: 5034950936761278127}
 --- !u!1001 &2440143523182033562
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26265,6 +26238,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4988768027811654939}
     m_Modifications:
+    - target: {fileID: 693634553152947436, guid: 0fabc8ae6c0e16b46bcd8909b5ccd2dc, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3291204842960989113, guid: 0fabc8ae6c0e16b46bcd8909b5ccd2dc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 270.3

@@ -294,7 +294,7 @@ MonoBehaviour:
   footRaycastDistance: 0.6
   hitbox: {fileID: 5534549546804945356}
   jumpStrength: 75
-  atttackTimePeriod: 0.14
+  atttackTimePeriod: 0.25
   timeManagerScript: {fileID: 3200213207126682257}
   meterManagerScript: {fileID: 5857473631273340645}
   lastSolidGroundPosition: {x: 0, y: 0}

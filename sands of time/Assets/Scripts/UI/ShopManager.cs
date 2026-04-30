@@ -43,6 +43,7 @@ public class ShopManager : MonoBehaviour
         {
             OnBuyAction.Invoke();
             Debug.Log(boughtObject);  
+            playerVariables.playerInventoryScript.AddItemAction.Invoke(boughtObject);
         }
         else
         {
