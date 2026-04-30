@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private float dashTimer = 0f;
     private float dashDirection = 1f;
     private float normalGravityScale;
-
+    private bool onBreakable = false;
     public Action TouchGroundAction {get;set;}
     
     
@@ -51,17 +51,20 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         variables.isOnGround = false;
+        Debug.Log("variables"+variables);
         Vector2 hangDirection = GetDirectionOfSideHanging(LayerMask.GetMask(defaultLayerNames),variables.footRaycastDistance);
         if (hangDirection != Vector2.zero)
         {
-            if (variables.isOnGround == false) // if is switching from false to true
+            if (variables.isOnGround == false && !onBreakable) // if is switching from false to true
             {
                 TouchGroundAction?.Invoke();
+                variables.lastSolidGroundPosition = variables.rigidBody.position;
+                variables.lastSolidGroundHangDirection = hangDirection;
             }
             variables.isOnGround = true;
-            variables.lastSolidGroundPosition = variables.rigidBody.position;
-            variables.lastSolidGroundHangDirection = hangDirection;
             variables.hasAirDash = true;
+
+
         }
         if (variables.dashCooldownTimer > 0)
             variables.dashCooldownTimer -= Time.fixedDeltaTime;
@@ -196,10 +199,15 @@ public class PlayerMovement : MonoBehaviour
         {
             return Vector2.zero;
         }
+
         if (hitLeft.collider != null)
         {
+            onBreakable = hitLeft.collider.gameObject.CompareTag("Damagable");
             return Vector2.right;
+        
         }
+        onBreakable = hitRight.collider.gameObject.CompareTag("Damagable");
+
         return Vector2.left;
     }
 }

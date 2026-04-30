@@ -386,7 +386,7 @@ MonoBehaviour:
   stateLabel: 
   downedTime: 3
   damageTaken: 0
-  damageThreshold: 50
+  damageThreshold: 100
   Label: EnragedStart
 --- !u!114 &5046708914462896247
 MonoBehaviour:
@@ -522,7 +522,7 @@ MonoBehaviour:
   stateLabel: 
   downedTime: 1
   damageTaken: 0
-  damageThreshold: 20
+  damageThreshold: 60
   Label: enraged downed reg
 --- !u!114 &578544888864287685
 MonoBehaviour:
@@ -542,7 +542,7 @@ MonoBehaviour:
   stateLabel: 
   downedTime: 1
   damageTaken: 0
-  damageThreshold: 10
+  damageThreshold: 40
   Label: RegDowned
 --- !u!1 &8822163881334994059
 GameObject:

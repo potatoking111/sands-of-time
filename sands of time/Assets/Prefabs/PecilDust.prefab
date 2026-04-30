@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 2806981980128615930}
   - component: {fileID: 136667888884701127}
   m_Layer: 7
-  m_Name: Dust Enemy
+  m_Name: PecilDust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134,7 +134,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 4631130865604566517, guid: c0b8ded5e4704484d84f36dd51e7fae9, type: 3}
+  m_Sprite: {fileID: 2496150587914254135, guid: feb7ed4573d56194a92f137dec9dd678, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -214,7 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyVariables
   rigidBody: {fileID: 1972117242105589348}
   hitbox: {fileID: 4238549478313998620}
-  senseRadius: 30
+  senseRadius: 40
   senseAngleOffset: 45
   _facing: {x: 1, y: 0}
   walkSpeed: 15
@@ -243,7 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac239cf5ceff97b4d882871aa3dd3e4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PatrolState
-  stateSprite: {fileID: 4631130865604566517, guid: c0b8ded5e4704484d84f36dd51e7fae9, type: 3}
+  stateSprite: {fileID: 2496150587914254135, guid: feb7ed4573d56194a92f137dec9dd678, type: 3}
   nextStates:
   - {fileID: 136667888884701127}
   stateLabel: patrol
@@ -260,9 +260,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be5ac3650ccb7c14598928d4a3345f8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChaseState
-  stateSprite: {fileID: 4631130865604566517, guid: c0b8ded5e4704484d84f36dd51e7fae9, type: 3}
+  stateSprite: {fileID: 2496150587914254135, guid: feb7ed4573d56194a92f137dec9dd678, type: 3}
   nextStates:
   - {fileID: 2806981980128615930}
   stateLabel: chase
-  chaseSpeed: 20
+  chaseSpeed: 50
   senseAngleOffset: 45
