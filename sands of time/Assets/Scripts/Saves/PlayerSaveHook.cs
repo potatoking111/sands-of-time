@@ -47,6 +47,13 @@ public class PlayerSaveHook : MonoBehaviour
 
         isReady = true;
         Debug.Log($"[PlayerSaveHook] Save system ready on slot {slotToLoad}.");
+
+        foreach (ShopSaveHook shopHook in FindObjectsByType<ShopSaveHook>(FindObjectsSortMode.None)) // TESTING
+        {
+            shopHook.StartSaver();
+        }
+
+
     }
 
     void Update()
