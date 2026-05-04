@@ -21,6 +21,19 @@ public class PlayerTimeManager : MonoBehaviour
     void Start()
     {
         variables = gameObject.GetComponent<PlayerVariables>();
+        FlipAction = null;
+        TakeDamageAction = null;
+        FlipAction += Flip;
+        TakeDamageAction += TakeDamage;
+        healthBarContainer = healthBar.transform.parent.gameObject;
+
+        initialTimeDisplaySize = healthBarContainer.GetComponent<RectTransform>().localScale.x;
+    }
+    void OnEnable()
+    {
+        variables = gameObject.GetComponent<PlayerVariables>();
+        FlipAction = null;
+        TakeDamageAction = null;
         FlipAction += Flip;
         TakeDamageAction += TakeDamage;
         healthBarContainer = healthBar.transform.parent.gameObject;
@@ -71,6 +84,7 @@ public class PlayerTimeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("dmg" + TakeDamageAction);
         if (!GameState.GameOn)
         {
             return;
@@ -80,9 +94,13 @@ public class PlayerTimeManager : MonoBehaviour
         {
             variables.timeHealth = 0;
         }
-        healthBar.transform.localScale = new Vector3(variables.timeHealth/variables.maxTimeHealth,1,1);
-        float size = healthBar.GetComponent<RectTransform>().sizeDelta.x;
-        healthBar.transform.localPosition = new Vector3(-timeDirection*(size-variables.timeHealth/variables.maxTimeHealth*size)/2,healthBar.transform.localPosition.y,healthBar.transform.localPosition.z);
+        if (variables.timeHealth != 0)
+        {
+             healthBar.transform.localScale = new Vector3(variables.timeHealth/variables.maxTimeHealth,1,1);
+            float size = healthBar.GetComponent<RectTransform>().sizeDelta.x;
+            healthBar.transform.localPosition = new Vector3(-timeDirection*(size-variables.timeHealth/variables.maxTimeHealth*size)/2,healthBar.transform.localPosition.y,healthBar.transform.localPosition.z);
+            }
+       
 
 
         if (variables.timeHealth <= 0)

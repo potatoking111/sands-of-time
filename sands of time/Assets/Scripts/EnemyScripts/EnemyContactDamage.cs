@@ -33,6 +33,7 @@ public class EnemyContactDamage : MonoBehaviour
                     damage += variables.chargeExtraDamage;
                 }
                 playerVariables.timeManagerScript.TakeDamageAction?.Invoke(damage,DamageType.Enemy);
+                Debug.Log("INVOKED DAMAGE");
                 lastDamageTime = Time.time;
 
             }

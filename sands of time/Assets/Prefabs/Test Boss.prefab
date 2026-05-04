@@ -263,7 +263,7 @@ MonoBehaviour:
   stateLabel: 
   areaOfAttackCollider: {fileID: 0}
   timesFlippedDirection: 0
-  chargeSpeed: 40
+  chargeSpeed: 80
 --- !u!114 &3088578724656124108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,7 +406,7 @@ MonoBehaviour:
   stateLabel: 
   areaOfAttackCollider: {fileID: 0}
   timesFlippedDirection: 0
-  chargeSpeed: 45
+  chargeSpeed: 90
 --- !u!114 &514365352162485228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -445,7 +445,7 @@ MonoBehaviour:
   stateLabel: 
   areaOfAttackCollider: {fileID: 0}
   timesFlippedDirection: 0
-  chargeSpeed: 50
+  chargeSpeed: 90
 --- !u!114 &1856049842165552623
 MonoBehaviour:
   m_ObjectHideFlags: 0
